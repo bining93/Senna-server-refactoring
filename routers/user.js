@@ -1,6 +1,7 @@
 import { Router } from 'express';
 const router = Router();
-import userController from '../controller/index.js';
+import userController from '../controller/user/index.js';
+//console.log('userController', userController);
 
 //router 작업시마다 추가하기
 //router.method('엔드포인트', 작업한 컨트롤러)
@@ -8,6 +9,5 @@ import userController from '../controller/index.js';
 
 // post /user/login 
 router.post('/login', userController.login);
-
 
 export default router;

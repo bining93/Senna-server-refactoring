@@ -7,6 +7,8 @@ const { userController } = require('../controller/index');
 //router.method('엔드포인트', 작업한 컨트롤러)
 //router.post('/login', userController.login);
 
+// post /user/login 
+router.post('/login', userController.login);
 
 
 module.exports = router;

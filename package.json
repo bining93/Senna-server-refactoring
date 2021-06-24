@@ -1,6 +1,7 @@
 {
   "name": "senna-server",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zdtfcx/Senna-server.git"
+    "url": "git+https://github.com/bining93/Senna-server.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zdtfcx/Senna-server/issues"
+    "url": "https://github.com/bining93/Senna-server/issues"
   },
-  "homepage": "https://github.com/zdtfcx/Senna-server#readme",
+  "homepage": "https://github.com/bining93/Senna-server#readme",
   "dependencies": {
     "axios": "^0.21.1",
     "cookie-parser": "^1.4.5",

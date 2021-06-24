@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const postingSchema = mongoose.Schema({
   userId: {
@@ -16,11 +16,11 @@ const postingSchema = mongoose.Schema({
   },
   likes: {
     type: Number,
-    default: 0,
+    default: 0
   },
   createdDate: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   status: {
       type: Boolean,
@@ -30,4 +30,4 @@ const postingSchema = mongoose.Schema({
 // 모델의 이름과 스키마를 이용해 모델의 정의함.
 const Posting = mongoose.model("Posting", postingSchema);
 
-module.exports = { Posting };
+export default Posting;

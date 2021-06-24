@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
-const { postController } = require('../controller/index');
+import postController from '../controller/index.js';
 
+//router 작업시마다 추가하기
 
-module.exports = router;
+export default router;

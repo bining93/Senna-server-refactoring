@@ -6,6 +6,8 @@ import userController from '../controller/index.js';
 //router.method('엔드포인트', 작업한 컨트롤러)
 //router.post('/login', usersController.login);
 
+// post /user/login 
+router.post('/login', userController.login);
 
 
 export default router;

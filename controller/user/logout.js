@@ -1,4 +1,4 @@
-module.exports = async (req, res) => {
+const logout = (req, res) => {
     const { accessToken } = req.body;
 
     if(!accessToken) {
@@ -7,3 +7,7 @@ module.exports = async (req, res) => {
         res.status(200).send('successfully logged out')
     }
 }
+
+export default logout;
+
+    

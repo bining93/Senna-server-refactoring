@@ -1,8 +1,8 @@
-const { User } = require('../../models');
-const jwt = require('jsonwebtoken');
+import User from '../../models/User.js';
+import jwt from 'jsonwebtoken';
 
+const login = async (req, res) => {
 
-module.exports = async (req, res) => {
   const { userId, password } = req.body
 
   const userInfo = await User.findOne({
@@ -42,5 +42,9 @@ module.exports = async (req, res) => {
     });
   }
 
+}
 
-};
+export default login;
+
+
+

@@ -1,7 +1,6 @@
-const express = require('express');
-const router = express.Router();
-
-const { userController } = require('../controller');
+import { Router } from 'express';
+const router = Router();
+import userController from '../controller/index.js';
 
 //router 작업시마다 추가하기
 //router.method('엔드포인트', 작업한 컨트롤러)
@@ -9,4 +8,4 @@ const { userController } = require('../controller');
 
 
 
-module.exports = router;
+export default router;

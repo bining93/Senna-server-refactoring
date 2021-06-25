@@ -1,8 +1,8 @@
 import Posting from "../../models/Posting.js";
 
-const all = (req, res) => {
+const all = async (req, res) => {
     //docs는 검색결과를 배열에 담는다.
-    Posting.find({status: true}, (err, docs) => {
+    await Posting.find({status: true}, (err, docs) => {
         if(err) {
             res.status(404).send('게시물을 찾을 수 없습니다.')
             return console.log(err)        
@@ -14,7 +14,6 @@ const all = (req, res) => {
         }
     })
 }
-
 
 export default all;
 //DB에 저장된 모든 게시물의 정보를 보내주는 엔드포인트 

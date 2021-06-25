@@ -5,6 +5,10 @@ const postingSchema = mongoose.Schema({
     type: String,
     maxLength: 50,
   },
+  password: {
+    type: String,
+    minLength: 5
+  },
   image: {
     type: Object,
   },

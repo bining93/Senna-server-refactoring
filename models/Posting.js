@@ -5,6 +5,10 @@ const postingSchema = mongoose.Schema({
     type: String,
     maxLength: 50,
   },
+  password: {
+    type: String,
+    minLength: 5
+  },
   image: {
     type: Object,
   },
@@ -18,12 +22,13 @@ const postingSchema = mongoose.Schema({
     type: Number,
     default: 0
   },
-  createdDate: {
+  created_date: {
     type: Date,
     default: Date.now
   },
   status: {
-      type: Boolean,
+    type: Boolean,
+    default: true
   }
 });
 

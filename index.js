@@ -15,7 +15,7 @@ DBconnect();
 
 app.use(cors({
     origin: true,
-    methods: 'GET, POST, PUT, DELETE, OPTIONS',
+    methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
     credentials: true
 }));
 

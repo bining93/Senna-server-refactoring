@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
-  userId: {
+  user_id: {
     type: String,
     maxLength: 50,
   },
@@ -17,6 +17,7 @@ const userSchema = mongoose.Schema({
   },
   status: {
     type: Boolean,
+    default: true
   }
 });
 

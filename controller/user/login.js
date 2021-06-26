@@ -25,6 +25,7 @@ const login = async (req, res) => {
     const accessToken = jwt.sign({ userid, profileImage, favorite }, process.env.ACCESS_SECRET, {
       expiresIn: '1h',
     });
+
     // const refreshToken = jwt.sign({ userid, profileImage, favorite }, process.env.REFRESH_SECRET, {
     //   expiresIn: '10h',
     // });
@@ -41,7 +42,6 @@ const login = async (req, res) => {
       message: 'accessToken'
     });
   }
-
 }
 
 export default login;

@@ -1,6 +1,6 @@
 import User from '../../models/User.js';
 
-const checkId = async (req, res, next) => {
+const checkId = async (req, res) => {
     //아이디 중복확인
     const { id } = req.body;
     console.log('id', id)

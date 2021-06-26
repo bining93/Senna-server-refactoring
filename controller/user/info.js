@@ -9,20 +9,19 @@ const info = async (req, res) => {
         // 일치하는 유저가 없을 경우
         res.status(400).send('잘못된 접근 방식입니다');
     } else {
-    
         const token = authorization.split(' ')[1]
         const data = jwt.verify( token, process.env.ACCESS_SECRET, {
             expiresIn: '1h',
         });
-        // const refreshToken = jwt.sign({ userid, profileImage, favorite }, process.env.REFRESH_SECRET, {
-        //   expiresIn: '10h',
-        // });
-        // // 생성된 refresh token을 쿠키에 담아줍니다
-        // res.cookie('refreshToken', refreshToken, {
-        //   sameSite: 'none',
-        //   secure: true, 
-        //   httpOnly: true
-        // });
+        //const refreshToken = jwt.sign({ userid, profileImage, favorite }, process.env.REFRESH_SECRET, {
+        //  expiresIn: '10h',
+        //});
+        //// 생성된 refresh token을 쿠키에 담아줍니다
+        //res.cookie('refreshToken', refreshToken, {
+        //  sameSite: 'none',
+        //  secure: true, 
+        //  httpOnly: true
+        //});
         res.status(200).send({ 
             data: { 
                 id, 
@@ -38,7 +37,6 @@ const info = async (req, res) => {
             } 
         });
     }
-
 }
 
 export default info;

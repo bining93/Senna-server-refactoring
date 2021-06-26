@@ -1,8 +1,8 @@
 import Posting from "../../models/Posting.js";
 
-const all = async (req, res) => {
+const all = (req, res) => {
     //docs는 검색결과를 배열에 담는다.
-    await Posting.find({status: true}, (err, docs) => {
+    Posting.find({status: true}, (err, docs) => {
         if(err) {
             res.status(404).send('게시물을 찾을 수 없습니다.')
             return console.log(err)        

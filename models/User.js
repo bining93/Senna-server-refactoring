@@ -13,10 +13,11 @@ import mongoose from "mongoose";
         type: String,
     },
     favorite: {
-        type: Array,
+        type: Array
     },
     status: {
         type: Boolean,
+        default: true
     }
 })
 const User = mongoose.model("User", userSchema);

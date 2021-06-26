@@ -10,7 +10,9 @@ const router = Router();
 
 // post /user/login 
 router.post('/login', userController.login);
-
+router.post('/signup', userController.signup);
 router.post('/checkid', userController.checkId);
+
+router.patch('/favorite/:id', userController.favorite);
 
 export default router;

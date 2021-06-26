@@ -9,5 +9,4 @@ const logout = (req, res) => {
 }
 
 export default logout;
-
     

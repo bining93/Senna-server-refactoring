@@ -4,7 +4,6 @@ import Posting from "../../models/Posting.js";
 const modify = async (req, res) => {
     //postingId 값이 params에 담겨져 온다. 
     //console.log('req', req.params.id)
-
     const { userId, image, content } = req.body;
     const postingId = req.params.id;
 
@@ -26,6 +25,7 @@ const modify = async (req, res) => {
                     message: "게시물 수정 성공"
                 })
             }
+             
         })
         .catch(err => {
             //postingId가 없을 때

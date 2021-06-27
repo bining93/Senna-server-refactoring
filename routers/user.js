@@ -15,4 +15,6 @@ router.post('/checkid', userController.checkId);
 
 router.patch('/favorite/:id', userController.favorite);
 
+router.delete('/favorite/:id', userController.deleteFavorite);
+
 export default router;

@@ -24,10 +24,6 @@ const favorite = async (req, res) => {
                 .then(like => {
                     console.log('like', like)
                 })
-                .catch(err => {
-                    console.log(err)
-                    res.status(500).send('서버에러')
-                })
             }
         })
         .catch(err => {

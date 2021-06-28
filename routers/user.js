@@ -17,6 +17,7 @@ router.post('/login', userController.login);
 router.post('/upload', upload.single('avatar'), userController.upload);
 
 router.post('/signup', userController.signup);
+
 router.post('/checkid', userController.checkId);
 
 router.patch('/favorite/:id', userController.favorite);

@@ -10,7 +10,7 @@ import mongoose from "mongoose";
         minlength: 5,
     },
     profileImage: {
-        type: String,
+        type: Object
     },
     favorite: {
         type: Array

@@ -1,12 +1,14 @@
 import User from '../../models/User.js';
 
-const signup = async (req, res) => {
-    const { userId, password, profileImag } = req.body
-  
+
+const signup = async (req,res) => {
+    
+    const { userId, password, profileImage } = req.body
+
     const createUser = await User.create({
         userId,
         password,
-        profileImag
+        profileImage
     })
 
     if(!createUser){
@@ -17,6 +19,10 @@ const signup = async (req, res) => {
 }
 
 export default signup;
+//유저가 이미 있는 경우
+
+
+
 
 
 

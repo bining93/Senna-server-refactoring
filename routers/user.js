@@ -1,12 +1,7 @@
 import userController from '../controller/user/index.js';
 import { Router } from 'express';
+import upload from '../utils/multer.js'
 const router = Router();
-
-import multer from 'multer';
-
-const upload = multer({
-    dest: 'uploads/'
-})
 
 
 
@@ -18,7 +13,9 @@ const upload = multer({
 
 // post /user/login 
 router.post('/login', userController.login);
+
 router.post('/upload', upload.single('avatar'), userController.upload);
+
 router.post('/signup', userController.signup);
 router.post('/checkid', userController.checkId);
 

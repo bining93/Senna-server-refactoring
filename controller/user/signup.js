@@ -1,6 +1,5 @@
 import User from '../../models/User.js';
 
-
 const signup = async (req,res) => {
     
     const { userId, password, profileImage } = req.body
@@ -23,6 +22,9 @@ export default signup;
 
 
 
+//회원 가입 할 때 img를 multer가 uploads 파일에 올리고
+//그 경로를 서버에 넣고
+//응답을 보낸다. 
 
 
 

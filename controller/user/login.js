@@ -5,12 +5,12 @@ const login = async (req, res) => {
 
   const { userId, password } = req.body
 
-  const userInfo = await User.findOne({
-    where: { 
+  const userInfo = await User.findOne(
+    {
       userId: userId,
       password: password,
     }
-  });
+  );
 
   console.log('userInfo', userInfo)
   if (!userInfo) {

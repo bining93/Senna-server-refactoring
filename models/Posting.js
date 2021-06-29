@@ -6,7 +6,7 @@ const postingSchema = mongoose.Schema({
     maxLength: 50,
   },
   image: {
-    type: Object,
+    type: Array,
   },
   content: {
     type: String,

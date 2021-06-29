@@ -11,7 +11,6 @@ const upload = async (req,res) => {
         data: image,
         
     })
-
 }
 
 export default upload;

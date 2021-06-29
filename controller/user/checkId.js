@@ -5,7 +5,7 @@ const checkId = async (req, res) => {
     const { id } = req.body;
     console.log('id', id)
     if(!id) {
-        res.status(400).send('ID가 들어오지 않았습니다.')
+        return res.status(400).send('ID가 들어오지 않았습니다.')
     } 
     
     try {

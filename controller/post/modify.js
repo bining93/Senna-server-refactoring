@@ -1,5 +1,6 @@
 import Posting from "../../models/Posting.js";
 import s3 from '../../config/s3.js'
+import { checkType } from '../../utils/multer.js';
 
 //게시물 수정 
 const modify = async (req, res) => {
@@ -9,10 +10,13 @@ const modify = async (req, res) => {
     const postingId = req.params.id;
     const images = req.files;
     const path = images.map(img => img.location)
+    const type = images.map(img => img.mimetype.split('/')[1])
 
     if(!userId) {
-        res.status(400).send('필수 요소가 들어오지 않았습니다.')
-    } 
+        return res.status(400).send('필수 요소가 들어오지 않았습니다.')
+    } else if(!checkType(type)) {
+        return res.status(400).send('잘못된 파일 형식입니다.')
+    }
 
     try {
         //이전에 image를 불러온다.

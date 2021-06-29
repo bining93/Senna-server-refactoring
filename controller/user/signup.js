@@ -1,17 +1,42 @@
 import User from '../../models/User.js';
 import crypto from 'crypto';
+import { checkType } from '../../utils/multer.js';
 
 const signup = async (req,res) => {
     const { userId, password } = req.body
     //s3 버킷에 multer를 연동하면 location안에 경로가 들어가있다. 
     const profileImg  = req.file.location
-    console.log('req.file', req.file)
+    //console.log('req.file', req.file)
+
+    const type = req.file.mimetype.split('/')[1]
 
     const algorithm = 'aes-192-cbc';
 
     if(!userId || !password) {
-        res.status(400).send('필수 항목을 입력해주세요')
-    } else {
+        return res.status(400).send('필수 항목을 입력해주세요')
+    } else if(!checkType(type)) {
+        return res.status(400).send('잘못된 파일 형식입니다.')
+    }
+
+    try {
+        const joinUser = await User.create({
+            userId,
+            password,
+            profileImg
+        })
+
+        if(!joinUser) {
+            return res.status(401).send('회원가입 실패')
+        }
+        return res.status(201).send({
+            data: joinUser,
+            message: '회원가입 성공!'
+        });
+        
+    } catch(err) {
+        res.status(err.status || 500).send(err.message || 'error')
+    }
+   
         //비밀번호 암호화하기 
         /*
         crypto.scrypt(password, 'salt', 24, (err, key) => {
@@ -30,6 +55,7 @@ const signup = async (req,res) => {
         })
         */
         
+        /*
         //86194bc88eb3f542b0e7398fc07a072c
         crypto.scrypt('86194bc88eb3f542b0e7398fc07a072c', 'salt', 24, (err, key) => {
             if(err) throw err;
@@ -45,26 +71,7 @@ const signup = async (req,res) => {
                 console.log('encrypted add', decrypted)
             })
         })
-        
-        /*
-        await User.create({
-            userId,
-            password,
-            profileImg
-        })
-        .then(data => {
-            console.log(data)
-            res.status(201).send({
-                data: data,
-                message: '회원가입 성공!'
-            });
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(404).send('회원가입 실패');
-        })
         */
-    }
 }
 
 export default signup;

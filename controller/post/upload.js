@@ -1,4 +1,5 @@
 import Posting from "../../models/Posting.js";
+import { checkType } from "../../utils/multer.js";
 
 //게시글 올릴 때 - 정보 받아다가 DB에 doc 생성하기
 const upload = async (req, res) => {
@@ -9,6 +10,8 @@ const upload = async (req, res) => {
     const images = req.files;
     //console.log('images', images)
     const path = images.map(img => img.location)
+    const type = images.map(img => img.mimetype.split('/')[1])
+    
     //console.log('path', path)
     //path [
     //'https://senna-image.s3.ap-northeast-2.amazonaws.com/1624947227543.jpg',
@@ -18,7 +21,9 @@ const upload = async (req, res) => {
     let tagArr = hashtag.split(', ');
 
     if(!hashtag || !content || !userId || !images) {
-        res.status(400).send('필수 요소가 들어오지 않았습니다.')
+        return res.status(400).send('필수 요소가 들어오지 않았습니다.')
+    } else if(!checkType(type)) {
+        return res.status(400).send('잘못된 파일 형식입니다.')
     }
 
     try {

@@ -18,6 +18,10 @@ router.get('/logout', userController.logout);
 
 router.get('/info', userController.info);
 
+router.patch('/profile/:id', upload.single('profileImg'), userController.updateProfile);
+
+router.patch('/d/:id', userController.withdrawal);
+
 router.post('/upload', upload.single('avatar'), userController.upload);
 
 router.post('/signup', upload.single('avatar'), userController.signup);

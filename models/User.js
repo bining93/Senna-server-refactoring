@@ -12,11 +12,11 @@ import mongoose from "mongoose";
         required: true,
         minlength: 5,
     },
-    favorite: {
-        type: Array,
+    profileImg: {
+        type: String
     },
-    profileImage: {
-        type: String,
+    favorite: {
+        type: Array
     },
     status: {
         type: Boolean,

@@ -4,18 +4,20 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import userRouter from './routers/user.js';
 import postRouter from'./routers/post.js';
+import searchRouter from './routers/search.js';
 import DBconnect from './config/connect.js'
 import User from './models/User.js';
 import Posting from './models/Posting.js';
 
 const app = express();
 const port = 80;
+
 //mongoDB 연결 시키기 
 DBconnect();
 
 app.use(cors({
     origin: true,
-    methods: 'GET, POST, PUT, DELETE, OPTIONS',
+    methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
     credentials: true
 }));
 
@@ -62,6 +64,7 @@ app.post("/regi", (req, res) => {
 //라우터 연결
 app.use('/user', userRouter)
 app.use('/post', postRouter)
+app.use('/search', searchRouter)
 
 app.listen(port, () => {
     console.log(`server listening on ${port}`);

@@ -1,4 +1,5 @@
 import postController from '../controller/post/index.js';
+import upload from '../utils/multer.js'
 import { Router } from 'express';
 const router = Router();
 
@@ -10,12 +11,8 @@ const router = Router();
 router.get('/all', postController.all)
 
 // post /post/upload - 게시물 등록
-router.post('/upload', postController.upload)
+router.post('/upload', upload.array('images', 5), postController.upload)
 
-router.patch('/m/:id', postController.modify)
-
-
-
-
+router.patch('/m/:id', upload.array('images', 5), postController.modify)
 
 export default router;

@@ -8,7 +8,7 @@ const upload = multer({
         bucket: 'senna-image',
         acl: 'public-read',
         key: (req, file, cb) => {
-            cb(null, `${Date.now()}_${file.originalname}`) // 이름 설정
+            cb(null, `${Date.now()}.${file.originalname.split()[1]}`) // 이름 설정
         }
     })
 })

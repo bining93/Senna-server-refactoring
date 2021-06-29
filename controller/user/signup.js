@@ -46,6 +46,7 @@ const signup = async (req,res) => {
             })
         })
         
+        /*
         await User.create({
             userId,
             password,
@@ -62,7 +63,7 @@ const signup = async (req,res) => {
             console.log(err)
             res.status(404).send('회원가입 실패');
         })
-        
+        */
     }
 }
 

@@ -1,18 +1,43 @@
-
+import User from '../../models/User.js'
+import s3 from '../../config/s3.js'
 
 const updateProfile = async (req, res) => {
-    const { profileImg, password } = req.body
+    
+    const { password } = req.body;
+    const profileImg = req.file.location;
 
-    // 유저의 기존 관심사 데이터를 모두 삭제 
-    // post 요청으로 새로 들어온 관심사 카테고리 데이터를 생성 
+    await User.findById(
+        req.params.id
+      ).then((data) => {
+          if(!data) {
+            res.status(401).send('잘못된 접근입니다');
+          } else {
+              //pw 만인지 여부 확인 if()
+                const id = data._id;
+                const oldImg = data.profileImg;
+                s3.deleteObject({
+                    Bucket: 'senna-image',
+                    Key: oldImg
+                }, (err, data) => {
+                    if(err) {
+                        console.log(err)
+                    }
+                    console.log('기존 이미지 삭제', data)
+                });
+                User.findByIdAndUpdate(id, { password: password, profileImg: profileImg },
+                    function (err, docs) {
+                        if (err){
+                            console.log(err)
+                        } else {
+                            res.status(200).send("회원정보가 수정되었습니다");
+                        }
+                    }
+                );
+                
+          }
+    
+      })
 
-    if(true){
-        res.status(400).send('올바른 요청이 아닙니다.')
-    } else {
-
-        
-        res.status(201).send(  )
-    }
 }
 
 export default updateProfile

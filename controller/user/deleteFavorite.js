@@ -4,11 +4,11 @@ import Posting from '../../models/Posting.js';
 const deleteFavorite = async (req, res) => {
     const userId = req.params.id;
     const { postingId } = req.body;
+
     if(!postingId) {
         res.status(400).send('postingId를 보내주세요.')
-    } 
-
-    //userId에 맞는 doc에서 favorite 컬럼만 가져온다.
+    } else {
+           //userId에 맞는 doc에서 favorite 컬럼만 가져온다.
     await User.findById(userId).select('favorite').exec()
     .then(data => {    
         //삭제할 postingId 제외한 새 배열
@@ -32,6 +32,9 @@ const deleteFavorite = async (req, res) => {
 
     //like -1
     await Posting.findByIdAndUpdate(postingId, {$inc:{likes: -1}}).exec()
+    }
+
+ 
 }
 
 export default deleteFavorite;

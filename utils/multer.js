@@ -1,10 +1,6 @@
 import multer from 'multer';
 import multerS3 from 'multer-s3';
 import s3 from '../config/s3.js';
-//ReferenceError: __dirname is not defined
-//import path from 'path';
-//const __dirname = path.resolve();
-
 
 const upload = multer({
     storage: multerS3({

@@ -6,32 +6,28 @@ const favorite = async (req, res) => {
     const { postingId } = req.body;
 
     if(!postingId) {
-        res.status(400).send('필수 요소가 들어오지 않았습니다.')
-    } else {
-        await User.findById(id).exec()
-        .then(data => {
-            console.log('data', data)
-            if(!data || !data.status) {
-                res.status(401).send('존재하지 않는 유저입니다.')
-            } else {
-                let curFavorite = data.favorite || []
-                User.updateOne({_id:id}, {favorite: [...curFavorite, postingId]}, {upsert:true})
-                .then(result => {
-                    console.log('result', result)
-                    res.send('좋아요한 게시물이 추가되었습니다.')
+       return res.status(400).send('필수 요소가 들어오지 않았습니다.')
+    } 
+    
+    try {
+        let userInfo = await User.findById(id).exec()
 
-                    return Posting.findByIdAndUpdate(postingId, {$inc:{likes:1}}, {new:true})
-                })
-                .then(like => {
-                    console.log('like', like)
-                })
-            }
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).send('서버에러?')
-        })
+        if(!userInfo || !userInfo.status) {
+            return res.status(401).send('존재하지 않는 유저입니다.')
+        } else if(userInfo.favorite.includes(postingId)) {
+            return res.status(401).send('이미 추가된 게시물 입니다.')
+        }
+        let curFavorite = userInfo.favorite || []
+        const addFavorite = await User.updateOne({_id:id}, {favorite: [...curFavorite, postingId]}, {upsert:true})
+
+        if(addFavorite) {
+            await Posting.findByIdAndUpdate(postingId, {$inc:{likes:1}}, {new:true})
+            return res.send('관심 게시물로 추가되었습니다.')
+        }
+    } catch(err) {
+        res.status(err.status || 500).send(err.message || 'error')
     }
+
 }
 
 //try {

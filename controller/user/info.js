@@ -10,6 +10,7 @@ const info = async (req, res) => {
         // 일치하는 유저가 없을 경우
         res.status(400).send('잘못된 접근 방식입니다');
     } else {
+    
         const token = authorization.split(' ')[1]
         //유저 정보로 만들어서 
         const data = jwt.verify( token, process.env.TOKEN_SECRET, {
@@ -24,6 +25,7 @@ const info = async (req, res) => {
             data: { _id, favorite, userId, profileImg }
         });
     }
+
 }
 
 export default info;

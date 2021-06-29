@@ -12,6 +12,17 @@ const upload = multer({
         }
     })
 })
+
+const checkType = (type) => {
+    if(Array.isArray(type)) {
+        type.forEach(img => {
+            const type = req.file.mimetype.split('/')[1];
+        	if (type !== 'jpeg' || type !== 'jpg' || type !== 'png' || type !== 'cif') {
+                
+            }
+        })
+    }
+} 
 //const upload = multer({
 //    dest: 'uploads/'
 //})

@@ -51,9 +51,8 @@ const modify = async (req, res) => {
            message: "게시물 수정 성공"
         })
     
-    } catch {
-        res.status(err.status || 500).send(err.message || 'error')
-            
+    } catch(err) {
+        res.status(err.status || 500).send(err.message || 'error')      
     }
 }
 
@@ -62,4 +61,3 @@ export default modify;
 
 //게시물 삭제해야될 때 -> 삭제한 게시물 데이터 필요
 //게시물 수정할 때 -> 수정한 게시물의 정보를 보내기
-//1624969115913.jpg

@@ -19,7 +19,7 @@ const favorite = async (req, res) => {
                 .then(result => {
                     console.log('result', result)
                     res.send('좋아요한 게시물이 추가되었습니다.')
-                    
+
                     return Posting.findByIdAndUpdate(postingId, {$inc:{likes:1}}, {new:true})
                 })
                 .then(like => {
@@ -34,6 +34,11 @@ const favorite = async (req, res) => {
     }
 }
 
+//try {
+//
+//} catch(err) {
+//    
+//}
 export default favorite;
 
 //유저가 게시물 좋아요를 누르면 서버에 저장할 수 있도록 요청한다.

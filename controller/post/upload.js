@@ -1,7 +1,7 @@
 import Posting from "../../models/Posting.js";
 
 //게시글 올릴 때 - 정보 받아다가 DB에 doc 생성하기
-const upload = (req, res) => {
+const upload = async (req, res) => {
     const { hashtag, content, userId } = req.body;
     //hashtag를 formData로 보내면 이런식으로 들어온다. (배열이 아닌 string형식)
     //heelo,ooo
@@ -21,25 +21,22 @@ const upload = (req, res) => {
         res.status(400).send('필수 요소가 들어오지 않았습니다.')
     }
 
-    Posting.create(
-        {
+    try {
+        const newPosting = await Posting.create({
             userId,
             content,
             image: path,
             hashtag: tagArr
-        }
-    )
-    .then(data => {
-        console.log('data', data)
-        res.send({
-            data: data,
+        })
+
+        console.log('newPosting', newPosting);
+        return res.send({
+            data: newPosting,
             message: '게시물 등록 성공'
         })
-    }) 
-    .catch(err => {
-        console.log(err)
-        res.status(404).send('게시물 등록에 실패했습니다.')
-    })
+    } catch(err) {
+        res.status(err.status || 500).send(err.message || 'error')
+    }
 }
 
 export default upload;

@@ -16,11 +16,11 @@ const login = async (req, res) => {
       } else {
         // 일치하는 유저가 있을 경우
         // access token, refresh token 두가지를 생성
-        const {_id, userId, favorite, profileImg, status} = data;
-        const accessToken = jwt.sign({_id, userId, favorite, profileImg, status}, process.env.TOKEN_SECRET, {
+        const { _id, userId, favorite, profileImg, status } = data;
+        const accessToken = jwt.sign({ _id, userId, favorite, profileImg, status }, process.env.TOKEN_SECRET, {
           expiresIn: '1h',
         });
-        const refreshToken = jwt.sign({_id, userId, favorite, profileImg, status}, process.env.TOKEN_SECRET, {
+        const refreshToken = jwt.sign({ _id, userId, favorite, profileImg, status }, process.env.TOKEN_SECRET, {
           expiresIn: '10h',
         });
         // 생성된 refresh token을 쿠키에 담아줍니다
@@ -29,7 +29,9 @@ const login = async (req, res) => {
           secure: true, 
           httpOnly: true
         });
-        
+        if(!accessToken && !refreshToken) {
+
+        }
         res.status(200).send({
           data: {
             accessToken

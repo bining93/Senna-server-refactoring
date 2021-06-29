@@ -6,6 +6,8 @@ import favorite from './favorite.js';
 import deleteFavorite from './deleteFavorite.js';
 import upload from './upload.js';
 import info from './info.js';
+import updateProfile from './updateProfile.js';
+import withdrawal from './withdrawal.js'
 
 //엔드포인트별로 js 파일만든걸 export한다.
 export default {
@@ -16,6 +18,9 @@ export default {
     favorite,
     deleteFavorite,
     upload,
-    info
+    info,
+    updateProfile,
+    withdrawal
+
 }
 

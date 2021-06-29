@@ -14,6 +14,10 @@ const router = Router();
 // post /user/login 
 router.post('/login', userController.login);
 
+router.get('/logout', userController.logout);
+
+router.get('/info', userController.info);
+
 router.post('/upload', upload.single('avatar'), userController.upload);
 
 router.post('/signup', upload.single('avatar'), userController.signup);

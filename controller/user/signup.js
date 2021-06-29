@@ -13,6 +13,7 @@ const signup = async (req,res) => {
         res.status(400).send('필수 항목을 입력해주세요')
     } else {
         //비밀번호 암호화하기 
+        /*
         crypto.scrypt(password, 'salt', 24, (err, key) => {
             if(err) throw err;
 
@@ -27,8 +28,8 @@ const signup = async (req,res) => {
                 console.log('encrypted add', encrypted)
             })
         })
-
-        /*
+        */
+        
         //86194bc88eb3f542b0e7398fc07a072c
         crypto.scrypt('86194bc88eb3f542b0e7398fc07a072c', 'salt', 24, (err, key) => {
             if(err) throw err;
@@ -44,21 +45,25 @@ const signup = async (req,res) => {
                 console.log('encrypted add', decrypted)
             })
         })
-        */
         
+        /*
         await User.create({
             userId,
             password,
             profileImg
         })
         .then(data => {
-            res.status(201).send('회원가입 성공!');
+            console.log(data)
+            res.status(201).send({
+                data: data,
+                message: '회원가입 성공!'
+            });
         })
         .catch(err => {
             console.log(err)
             res.status(404).send('회원가입 실패');
         })
-        
+        */
     }
 }
 

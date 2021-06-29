@@ -1,10 +1,15 @@
 const logout = (req, res) => {
-    const { accessToken } = req.body;
+    const { authorization } = req.headers;
 
-    if(!accessToken) {
+    console.log(authorization)
+    if(!authorization) {
         res.status(400).send('잘못된 접근방식입니다')
     } else {
-        res.status(200).send('successfully logged out')
+        if (req.headers.authorization || req.cookies.refreshToken) {
+            delete req.headers.authorization;
+            res.clearCookie('refreshToken');
+            res.status(205).send({ message: 'logout success' });
+        }
     }
 }
 

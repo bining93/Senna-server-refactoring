@@ -1,19 +1,26 @@
 import User from '../../models/User.js';
 
 const signup = async (req,res) => {
-    
-    const { userId, password, profileImage } = req.body
+    const { userId, password} = req.body
+    //s3 버킷에 multer를 연동하면 location안에 경로가 들어가있다. 
+    const profileImg  = req.file.location
+    console.log('req.file', req.file)
 
-    const createUser = await User.create({
-        userId,
-        password,
-        profileImage
-    })
-
-    if(!createUser){
-        res.status(404).send('회원가입 실패');
+    if(!userId || !password) {
+        res.status(400).send('필수 항목을 입력해주세요')
     } else {
-        res.status(201).send('회원가입 성공!');
+        await User.create({
+            userId,
+            password,
+            profileImg
+        })
+        .then(data => {
+            res.status(201).send('회원가입 성공!');
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(404).send('회원가입 실패');
+        })
     }
 }
 

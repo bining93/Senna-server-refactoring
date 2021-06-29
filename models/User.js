@@ -9,8 +9,8 @@ import mongoose from "mongoose";
         type: String,
         minlength: 5,
     },
-    profileImage: {
-        type: Object
+    profileImg: {
+        type: String
     },
     favorite: {
         type: Array

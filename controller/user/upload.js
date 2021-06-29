@@ -1,4 +1,3 @@
-import s3 from '../../config/s3.js'
 
 const upload = async (req,res) => {
     //const image = req.file;
@@ -32,6 +31,7 @@ uploadImages : async (req, res) => {
 
 /*
 s3 버킷에서 이미지 삭제하는 코드
+import s3 from '../../config/s3.js'
     s3.deleteObject({
         Bucket: 'senna-image',
         Key: 'hristina-satalova-qRvHCZ4rlMs-unsplash.jpg_1624895395683'

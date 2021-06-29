@@ -1,6 +1,6 @@
 import User from '../../models/User.js';
 import Posting from '../../models/Posting.js';
-
+//favorite에 추가된 게시물이면 더 요청되지 않도록 에러 처리하기
 const favorite = async (req, res) => {
     const id = req.params.id;
     const { postingId } = req.body;
@@ -19,6 +19,7 @@ const favorite = async (req, res) => {
                 .then(result => {
                     console.log('result', result)
                     res.send('좋아요한 게시물이 추가되었습니다.')
+                    
                     return Posting.findByIdAndUpdate(postingId, {$inc:{likes:1}}, {new:true})
                 })
                 .then(like => {

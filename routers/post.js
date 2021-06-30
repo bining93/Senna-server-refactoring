@@ -12,6 +12,6 @@ router.post('/upload', upload.array('images', 5), postController.upload)
 
 router.patch('/m/:id', upload.array('images', 5), postController.modify)
 
-router.get('/d/:id', postController.deletePost)
+router.delete('/d/:id', postController.deletePost)
 
 export default router;

@@ -16,7 +16,7 @@ const withdrawal = async (req,res) => {
                         if (err){
                             console.log(err)
                         } else {
-                            res.status(200).send("회원탈퇴 되었습니다");
+                            res.status(200).send("회원 탈퇴가 완료 되었습니다");
                         }
                     }
                 );  

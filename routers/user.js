@@ -11,6 +11,7 @@ router.get('/logout', userController.logout);
 
 router.get('/info', userController.info);
 
+router.get('/request_token', userController.refreshtoken)
 
 router.patch('/profile/:id', upload.single('profileImg'), userController.updateProfile);
 

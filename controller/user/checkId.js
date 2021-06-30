@@ -12,9 +12,9 @@ const checkId = async (req, res) => {
         const isUser = await User.exists({userId: id})
         console.log(isUser);
         if(!isUser) {
-            res.send({message: '사용할 수 있는 아이디입니다.'})
+            return res.send('사용가능한 ID입니다.')
         } else {
-            res.status(401).send('이미 존재하는 아이디입니다.')   
+            return res.status(401).send('이미 존재하는 ID입니다.')   
         }
 
     } catch(err) {

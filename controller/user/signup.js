@@ -2,7 +2,6 @@ import User from '../../models/User.js';
 import { checkType } from '../../utils/multer.js';
 import { encryption } from '../../utils/setPwd.js';
 
-//의논할 것 : 프로필 이미지 선택사항이면 이미지가 안들어 갈 때 어떻게하지??
 const signup = async (req,res) => {
     const { userId, password } = req.body
     //console.log('req', req.file)
@@ -59,40 +58,6 @@ export default signup;
 //그 경로를 서버에 넣고
 //응답을 보낸다. 
 
-
-
-/*
-        crypto.scrypt(password, 'salt', 24, (err, key) => {
-            if(err) throw err;
-
-            crypto.randomFill(new Uint8Array(16), (err, iv) => {
-                if(err) throw err;
-
-                const cipher = crypto.createCipheriv(algorithm, key, iv);
-
-                let encrypted = cipher.update('text', 'utf8', 'hex');
-                console.log('encrypted', encrypted)
-                encrypted += cipher.final('hex')
-                console.log('encrypted add', encrypted)
-            })
-        })
-        */
-        /*
-        crypto.scrypt(, 'salt', 24, (err, key) => {
-            if(err) throw err;
-
-            crypto.randomFill(new Uint8Array(16), (err, iv) => {
-                if(err) throw err;
-
-                const decipher = crypto.createDecipheriv(algorithm, key, iv);
-
-                let decrypted = decipher.update('text', 'hex', 'utf8');
-                console.log('decrypted', decrypted)
-                decrypted += decipher.final('utf8')
-                console.log('decrypted add', decrypted)
-            })
-        })
-        */
 
 //crypto.scryptSync() 함수는 password-based(암호-기반) key-derivation function(키-값 유도함수)다.
 //필수인자 값으로 password, salt, keylen

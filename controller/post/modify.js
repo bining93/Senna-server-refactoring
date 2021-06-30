@@ -25,7 +25,7 @@ const modify = async (req, res) => {
         let beforeImg = beforeInfo.image;
 
         if(!beforeInfo.status) {
-            return res.status(401).send('삭제된 게시물 입니다.')
+            return res.status(404).send('존재하지 않는 게시물 입니다.')
         } else if(beforeInfo.userId !== userId) {
             return res.status(401).send('게시물에 수정 권한이 없는 유저입니다.')
         } 

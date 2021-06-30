@@ -8,7 +8,7 @@ const logout = (req, res) => {
         if (req.headers.authorization || req.cookies.refreshToken) {
             delete req.headers.authorization;
             res.clearCookie('refreshToken');
-            res.status(205).send({ message: 'logout success' });
+            res.status(205).send('로그아웃 되었습니다.');
         }
     }
 }

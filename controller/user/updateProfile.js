@@ -19,7 +19,8 @@ const updateProfile = async (req, res) => {
             } else {
               //pw 만인지 여부 확인 if()
                 const id = data._id;
-                const oldImg = data.profileImg;
+                //oldImg에서 name값만 가져오기
+                const oldImg = data.profileImg.split('com/')[1];
                 s3.deleteObject({
                     Bucket: 'senna-image',
                     Key: oldImg
@@ -43,7 +44,6 @@ const updateProfile = async (req, res) => {
         
         })
     }
-
 }
 
 export default updateProfile

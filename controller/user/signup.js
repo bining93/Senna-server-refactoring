@@ -53,7 +53,6 @@ export default signup;
 //유저가 이미 있는 경우
 
 
-
 //회원 가입 할 때 img를 multer가 uploads 파일에 올리고
 //그 경로를 서버에 넣고
 //응답을 보낸다. 

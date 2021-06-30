@@ -6,6 +6,7 @@ const signup = async (req,res) => {
     const { userId, password } = req.body
     //console.log('req', req.file)
     //s3 버킷에 multer를 연동하면 location안에 경로가 들어가있다. 
+    //선택사항이라 초기값을 빈문자열로
     let profileImg, type = ''  
     
     if(!userId || !password) {

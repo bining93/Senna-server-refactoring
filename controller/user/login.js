@@ -5,7 +5,7 @@ import { decryption } from '../../utils/setPwd.js';
 const login = async (req, res) => {
 
   const { userId, password } = req.body;
-
+  
   //const Users = mongoose.model('User', User.userSchema);
   if(!userId || password) {
     res.status(400).send('필수요소를 넣어주세요.')
@@ -13,13 +13,17 @@ const login = async (req, res) => {
 
   
   await User.findOne({
+
     userId: userId
   }).then((data) => {
-      if(!data) {
-        res.status(401).send('아이디와 비밀번호를 확인해주세요');
-      }else if(data.status === false) {
+    const decryptedPwd = decryption(data.password);
+    if(!data) {
+        res.status(401).send('아이디를 확인해주세요');
+    }else if(data.status === false){
         res.status(404).send('존재하지 않는 유저입니다');
-      } else {
+    }else if(decryptedPwd !== password) {
+        res.status(401).send('아이디와 비밀번호를 확인해주세요');
+    }else {
         // 일치하는 유저가 있을 경우
         // access token, refresh token 두가지를 생성
         const { _id, userId, favorite, profileImg, status } = data;

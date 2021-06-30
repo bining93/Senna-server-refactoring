@@ -6,35 +6,38 @@ const deleteFavorite = async (req, res) => {
     const { postingId } = req.body;
 
     if(!postingId) {
-        res.status(400).send('postingId를 보내주세요.')
-    } else {
-           //userId에 맞는 doc에서 favorite 컬럼만 가져온다.
-    await User.findById(userId).select('favorite').exec()
-    .then(data => {    
-        //삭제할 postingId 제외한 새 배열
-        const update = data.favorite.filter(el => el !== postingId)
+        return res.status(400).send('postingId를 보내주세요.')
+    } 
+    
+    try {
+        const nowFavorite = await User.findById(userId).select('favorite').exec()
+        console.log('favorite', nowFavorite)
 
-        //favorite 수정
-        return User.findByIdAndUpdate(userId, {favorite: update}, {new:true})
-    })
-    .then(data => {
-        res.send({
-            data: {
-                favorite: data.favorite,
-                userId: data.userId
-            },
-            message: '관심 게시글이 삭제되었습니다.'
-        })
-    })
-    .catch(err => {
-        console.log(err)
-    })
+        if(!nowFavorite.favorite.includes(postingId)) {
+            return res.status(404).send('favorite에 추가된 게시물이 아닙니다.')
+        }
 
-    //like -1
-    await Posting.findByIdAndUpdate(postingId, {$inc:{likes: -1}}).exec()
+        //삭제할 postingId 뺀 favorite 배열 
+        const newFavorite = nowFavorite.favorite.filter(post => post !== postingId)
+        console.log('newFavorite', newFavorite)
+        const update = await User.findByIdAndUpdate(userId, {favorite: newFavorite}, {new:true}).exec()      
+        console.log('update', update)
+        if(update) {
+            //like -1
+            await Posting.findByIdAndUpdate(postingId, {$inc:{likes: -1}})
+            
+            return res.send({
+                data: {
+                    favorite: update.favorite,
+                    userId: update.userId
+                },
+                message: '관심 게시글이 삭제되었습니다.'
+            })
+        }
+       
+    } catch(err) {
+        res.status(err.status || 500).send(err.message || 'error')
     }
-
- 
 }
 
 export default deleteFavorite;

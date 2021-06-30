@@ -1,9 +1,11 @@
 import User from '../../models/User.js';
 import jwt from 'jsonwebtoken';
+import { decryption } from '../../utils/setPwd.js';
 
 const login = async (req, res) => {
 
   const { userId, password } = req.body;
+
   //const Users = mongoose.model('User', User.userSchema);
   await User.findOne({
     userId: userId,

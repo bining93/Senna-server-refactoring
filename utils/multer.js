@@ -12,8 +12,24 @@ const upload = multer({
         }
     })
 })
+
+const checkType = (type) => {
+    if(Array.isArray(type)) {
+        type.forEach(img => {
+        	if (img === 'jpeg' || img === 'jpg' || img === 'png' || img === 'cif') {
+                return true
+            }
+            return false
+        })
+    } else {
+        if(type === 'jpeg' || type === 'jpg' || type === 'png' || type === 'cif') {
+            return true
+        }
+        return false
+    }
+} 
 //const upload = multer({
 //    dest: 'uploads/'
 //})
 
-export default upload;
+export { upload, checkType };

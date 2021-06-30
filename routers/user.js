@@ -1,5 +1,5 @@
 import userController from '../controller/user/index.js';
-import upload from '../utils/multer.js'
+import { upload } from '../utils/multer.js'
 import { Router } from 'express';
 
 const router = Router();
@@ -17,7 +17,6 @@ router.patch('/profile/:id', upload.single('profileImg'), userController.updateP
 router.patch('/d/:id', userController.withdrawal);
 
 router.post('/upload', upload.single('avatar'), userController.upload);
-
 
 router.post('/signup', upload.single('avatar'), userController.signup);
 

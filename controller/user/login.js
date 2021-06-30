@@ -1,15 +1,19 @@
 import User from '../../models/User.js';
 import jwt from 'jsonwebtoken';
 import { decryption } from '../../utils/setPwd.js';
-
+//로그인 할 때 _id도 보내주는 걸루~
 const login = async (req, res) => {
 
   const { userId, password } = req.body;
 
   //const Users = mongoose.model('User', User.userSchema);
+  if(!userId || password) {
+    res.status(400).send('필수요소를 넣어주세요.')
+  }
+
+  
   await User.findOne({
-    userId: userId,
-    password: password,
+    userId: userId
   }).then((data) => {
       if(!data) {
         res.status(401).send('아이디와 비밀번호를 확인해주세요');
@@ -35,9 +39,8 @@ const login = async (req, res) => {
 
         }
         res.status(200).send({
-          data: {
-            accessToken
-          }, 
+          userKey: _id, 
+          accessToken, 
           message: 'accessToken'
         });
       }
@@ -47,6 +50,3 @@ const login = async (req, res) => {
 }
 
 export default login;
-
-
-

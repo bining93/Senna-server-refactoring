@@ -8,6 +8,7 @@ import upload from './upload.js';
 import info from './info.js';
 import updateProfile from './updateProfile.js';
 import withdrawal from './withdrawal.js'
+import refreshtoken from './refreshtoken.js';
 
 //엔드포인트별로 js 파일만든걸 export한다.
 export default {
@@ -20,7 +21,7 @@ export default {
     upload,
     info,
     updateProfile,
-    withdrawal
-
+    withdrawal,
+    refreshtoken
 }
 

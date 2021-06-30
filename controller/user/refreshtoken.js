@@ -16,17 +16,16 @@ const refreshtoken = async (req, res) => {
         }) 
 
         const userInfo = await User.findOne({
-            where : {userId: data.userId}
+            userId: data.userId
         })
         if(!userInfo) {
             res.status(404).send('refresh token has been tempered')
         } else {
-            delete userInfo.dataValues.password;
-            let payload = {...userInfo.dataValues}
-            const accessToken = jwt.sign(payload, process.env.ACCESS_SECET)
+            const { _id, userId, favorite, profileImg, status } = userInfo;
+            const accessToken = jwt.sign({ _id, userId, favorite, profileImg, status }, process.env.ACCESS_SECET)
             res.send({            
                 accessToken: accessToken,
-                userInfo: userInfo.dataValues
+                userInfo: { _id, userId, favorite, profileImg, status }
             })
         }
     }

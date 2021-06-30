@@ -6,7 +6,7 @@ const deleteFavorite = async (req, res) => {
     const { postingId } = req.body;
 
     if(!postingId) {
-        return res.status(400).send('postingId를 보내주세요.')
+        return res.status(400).send('postingId가 들어오지 않았습니다.')
     } 
     
     try {

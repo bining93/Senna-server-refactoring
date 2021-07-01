@@ -14,13 +14,17 @@ const upload = multer({
 })
 
 const checkType = (type) => {
+    console.log('type', typeof type)
     if(Array.isArray(type)) {
-        type.forEach(img => {
+        let result = type.map(img => {
+            console.log('img', img)
         	if (img === 'jpeg' || img === 'jpg' || img === 'png' || img === 'cif') {
                 return true
             }
             return false
         })
+        if(result.includes(false)) return false
+        else return true 
     } else {
         if(type === 'jpeg' || type === 'jpg' || type === 'png' || type === 'cif') {
             return true

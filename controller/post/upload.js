@@ -11,7 +11,8 @@ const upload = async (req, res) => {
     //console.log('images', images)
     const path = images.map(img => img.location)
     const type = images.map(img => img.mimetype.split('/')[1])
-    
+    console.log(type)
+    console.log(images)
     //console.log('path', path)
     //path [
     //'https://senna-image.s3.ap-northeast-2.amazonaws.com/1624947227543.jpg',

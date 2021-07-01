@@ -7,13 +7,16 @@ const login = async (req, res) => {
   const { userId, password } = req.body;
   
   //const Users = mongoose.model('User', User.userSchema);
-  if(!userId || password) {
+  if(!userId || !password) {
     res.status(400).send('필수요소를 넣어주세요.')
   }
 
-  
-  await User.findOne({
+  try {
 
+  } catch(err) {
+    const userInfo = await User.findOne({userId: userId})
+  }
+  await User.findOne({
     userId: userId
   }).then((data) => {
     const decryptedPwd = decryption(data.password);

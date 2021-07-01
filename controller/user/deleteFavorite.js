@@ -26,11 +26,9 @@ const deleteFavorite = async (req, res) => {
             //like -1
             await Posting.findByIdAndUpdate(postingId, {$inc:{likes: -1}})
             
-            return res.send({
-                data: {
-                    favorite: update.favorite,
-                    userId: update.userId
-                },
+            return res.send({ 
+                favorite: update.favorite,
+                userId: update.userId,
                 message: '관심 게시글이 삭제되었습니다.'
             })
         }

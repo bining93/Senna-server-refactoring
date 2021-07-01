@@ -28,9 +28,7 @@ const info = async (req, res) => {
             return res.status(404).send('일치하는 유저가 없습니다.')
         }
         const { _id, favorite, userId, profileImg } = userInfo
-
-        //좋아요한 게시물의 포스팅 id랑 status값을 가져다 넣는다.
-        
+   
         //Post에서 내가 쓴 글을 찾아온다.
         const findPosting = await Posting.find().where('userId').equals(userId)
         console.log('find', findPosting)

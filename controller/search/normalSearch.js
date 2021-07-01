@@ -1,4 +1,5 @@
 import Posting from "../../models/Posting.js";
+import Search from "../../models/Search.js";
 
 const normalSearch = (req, res) => {
     console.log('req.query',req.query.sch) //--> { sch: 'value' }
@@ -24,6 +25,10 @@ const normalSearch = (req, res) => {
         .catch(err => {
             throw err;
         })
+        // const searchHashtag = Search.findOne({hashtag});
+        // if(!searchHashtag) {
+        //     Search.create({hashtag, searchcount, likecount, })
+        // }
     }
 }
 

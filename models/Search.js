@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 const searchSchema = mongoose.Schema({
   hashtag: {
     type: String,
+    required: true,
+    unique: true,
+    minlength: 2
   },
   searchcount: {
     type: Number,
@@ -13,10 +16,11 @@ const searchSchema = mongoose.Schema({
     default: 0
   },
   synonym: {
-    type: String
+    type: Array
   },
   forbidden: {
-    type: String
+    type: Boolean,
+    default: false
   }
 });
 

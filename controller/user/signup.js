@@ -9,7 +9,7 @@ const signup = async (req,res) => {
     //선택사항이라 초기값을 빈문자열로
     let profileImg, type = ''  
     
-    if(!userId || !password) {
+    if(!userId || !password || userId === 'undefined' || password === 'undefined') {
         return res.status(400).send('필수 항목을 입력해주세요')
     } 
 

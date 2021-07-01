@@ -12,7 +12,7 @@ const modify = async (req, res) => {
     const path = images.map(img => img.location)
     const type = images.map(img => img.mimetype.split('/')[1])
 
-    if(!userId) {
+    if(!userId || userId === 'undefined') {
         return res.status(400).send('필수 요소가 들어오지 않았습니다.')
     } else if(!checkType(type)) {
         return res.status(400).send('잘못된 파일 형식입니다.')

@@ -7,6 +7,8 @@ const router = Router();
 // get /post/all - 모든 게시물 보내기
 router.get('/all', postController.all)
 
+router.get('/:id', postController.getPosting)
+
 // post /post/upload - 게시물 등록
 router.post('/upload', upload.array('images', 5), postController.upload)
 

@@ -1,9 +1,11 @@
 import User from '../../models/User.js';
 import Posting from '../../models/Posting.js';
 import jwt from 'jsonwebtoken';
+import Search from '../../models/Search.js';
 
 const info = async (req, res) => {
-    //req 헤더의 authorization에 access token이 담겨온다.
+    //req 헤더의 authorization에 access token이 담겨온다
+
     const { authorization } = req.headers;
     console.log(authorization)
 
@@ -27,6 +29,8 @@ const info = async (req, res) => {
         }
         const { _id, favorite, userId, profileImg } = userInfo
 
+        //좋아요한 게시물의 포스팅 id랑 status값을 가져다 넣는다.
+        
         //Post에서 내가 쓴 글을 찾아온다.
         const findPosting = await Posting.find().where('userId').equals(userId)
         console.log('find', findPosting)

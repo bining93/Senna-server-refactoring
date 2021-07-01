@@ -47,6 +47,7 @@ const login = async (req, res) => {
         }
         res.status(200).send({
           userKey: _id, 
+          userId: userId,
           accessToken, 
           message: 'accessToken'
         });

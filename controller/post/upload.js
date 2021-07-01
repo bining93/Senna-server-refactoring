@@ -32,7 +32,7 @@ const upload = async (req, res) => {
             hashtag: tagArr
         })
         
-        //console.log('newPosting', newPosting);
+        console.log('newPosting', newPosting);
         return res.send({
             data: newPosting,
             message: '게시물 등록 성공'

@@ -22,9 +22,10 @@ const favorite = async (req, res) => {
 
         //유저가 좋아요한 postingId로 게시물 정보를 찾아온다. 
         const addFavorite = await User.updateOne({_id:id}, {favorite: [...curFavorite, postingId]}, {upsert:true})
-
+        
         if(addFavorite) {
             await Posting.findByIdAndUpdate(postingId, {$inc:{likes:1}}, {new:true})
+
             return res.send('관심 게시물로 추가되었습니다.')
         }
     } catch(err) {

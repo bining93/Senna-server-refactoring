@@ -9,12 +9,12 @@ const getPosting = async (req, res) => {
     }
 
     try{
-        const postingInfo = await Posting.findById(postingId).select('image content hashtag')
-        //console.log('postingInfo', postingInfo)
+        const postingInfo = await Posting.findById(postingId).select('image content hashtag likeUser')
+        console.log('postingInfo', postingInfo)
         return res.send({
             data: postingInfo
         })
-        
+
     } catch(err) {
         res.status(err.status || 500).send(err.message || 'error')
     }

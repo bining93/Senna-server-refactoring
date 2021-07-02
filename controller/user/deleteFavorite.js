@@ -24,7 +24,9 @@ const deleteFavorite = async (req, res) => {
         console.log('update', update)
         if(update) {
             //like -1
-            await Posting.findByIdAndUpdate(postingId, {$inc:{likes: -1}})
+            const nowlike = await Posting.findById(postingId).select('likeUser') 
+            let updateLike = nowlike.likeUser.filter(el => el !== update.userId)
+            await Posting.findByIdAndUpdate(postingId, {$inc:{likes:-1}, likeUser: updateLike}, {new:true})
             
             return res.send({ 
                 favorite: update.favorite,

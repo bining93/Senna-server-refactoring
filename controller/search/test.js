@@ -1,9 +1,17 @@
 import Posting from "../../models/Posting.js";
 import Search from "../../models/Search.js";
+import axios from 'axios';
 
-const normalSearch = (req, res) => {
+const test = async (req, res) => {
     console.log('req.query',req.query.sch) //--> { sch: 'value' }
-
+    let name = req.query.sch
+    const result = await axios
+    .get(`http://apis.data.go.kr/1262000/CountryBasicService/getCountryBasicList?serviceKey=oAYvYnl2dUbrPu5M8EgjAkWSKP0svjdgv5r0DDQhakcmi4DubNPcVAngFgMFgB0S2g8HgS%2B7B4V4DYJ9NCuNOQ%3D%3D&countryName=%EA%B0%80%EB%82%98`)
+    .then(data => {
+        console.log('data', data)
+    })
+    
+    /*
     if(!req.query.sch) {
         res.status(400).send('query가 들어오지 않았습니다.')
     } else {
@@ -18,7 +26,6 @@ const normalSearch = (req, res) => {
         .then(result => {
             console.log('result', result)
             res.send({
-                word: req.query.sch,
                 data: result,
                 message: '검색 결과입니다.'
             })
@@ -31,9 +38,10 @@ const normalSearch = (req, res) => {
         //     Search.create({hashtag, searchcount, likecount, })
         // }
     }
+    */
 }
 
-export default normalSearch;
+export default test;
 
 
 //유저가 검색한 검색어를 query로 받는다.

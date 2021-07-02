@@ -21,10 +21,14 @@ const favorite = async (req, res) => {
         let curFavorite = userInfo.favorite || []
 
         //유저가 좋아요한 postingId로 게시물 정보를 찾아온다. 
-        const addFavorite = await User.updateOne({_id:id}, {favorite: [...curFavorite, postingId]}, {upsert:true})
-        
+        const addFavorite = await User.findOneAndUpdate({_id:id}, {favorite: [...curFavorite, postingId]}, {upsert:true}).select('userId')
+        console.log('addFavorite', addFavorite);
+
         if(addFavorite) {
-            await Posting.findByIdAndUpdate(postingId, {$inc:{likes:1}}, {new:true})
+            const nowlike = await Posting.findById(postingId).select('likeUser') 
+            if(!nowlike.likeUser.includes(addFavorite.userId)) {
+                await Posting.findByIdAndUpdate(postingId, {$inc:{likes:1}, likeUser: [...nowlike.likeUser, addFavorite.userId]}, {new:true, upsert:true})
+            } 
 
             return res.send('관심 게시물로 추가되었습니다.')
         }

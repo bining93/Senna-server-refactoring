@@ -18,6 +18,10 @@ const postingSchema = mongoose.Schema({
     type: Number,
     default: 0
   },
+  likeUser: {
+    type: Array,
+    default: []
+  },
   created_date: {
     type: Date,
     default: Date.now

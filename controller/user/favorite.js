@@ -11,31 +11,45 @@ const favorite = async (req, res) => {
     
     try {
         let userInfo = await User.findById(id).exec()
-
+        /*
+        let result = userInfo.favorite.map(post => {
+            console.log('post', typeof post._id)
+            console.log('id', typeof postingId)
+            if(post._id === postingId) {
+                return false
+            }
+            return true
+        })
+        console.log('result', result)
+        */
         if(!userInfo || !userInfo.status) {
             return res.status(401).send('존재하지 않는 유저입니다.')
-        } else if(userInfo.favorite.includes(postingId)) {
-            return res.status(401).send('이미 추가된 게시물 입니다.')
-        }
-
+        } //else if() {
+            //return res.status(401).send('이미 추가된 게시물 입니다.')
+        //} 
+ 
         let curFavorite = userInfo.favorite || []
 
-        //유저가 좋아요한 postingId로 게시물 정보를 찾아온다. 
-        const addFavorite = await User.findOneAndUpdate({_id:id}, {favorite: [...curFavorite, postingId]}, {upsert:true}).select('userId')
-        console.log('addFavorite', addFavorite);
+        const postingInfo = await Posting.findById(postingId)
+        console.log('postingInfo', postingInfo)
+        if(!postingInfo.likeUser.includes(userInfo.userId)) {
+            const addFavorite = await User.findOneAndUpdate({_id:id}, {favorite: [...curFavorite, postingInfo]}, {upsert:true}).select('userId')
+            console.log('addFavorite', addFavorite);
 
-        if(addFavorite) {
-            const nowlike = await Posting.findById(postingId).select('likeUser') 
-            if(!nowlike.likeUser.includes(addFavorite.userId)) {
-                await Posting.findByIdAndUpdate(postingId, {$inc:{likes:1}, likeUser: [...nowlike.likeUser, addFavorite.userId]}, {new:true, upsert:true})
-            } 
-
-            return res.send('관심 게시물로 추가되었습니다.')
+            if(addFavorite) { 
+                await Posting.findByIdAndUpdate(postingId, {$inc:{likes:1}, likeUser: [...postingInfo.likeUser, addFavorite.userId]}, {new:true, upsert:true}) 
+                return res.send('관심 게시물로 추가되었습니다.')
+            }
         }
+        return res.status(401).send('이미 추가된 게시물입니다.')
+        //유저가 좋아요한 postingId로 게시물 정보를 찾아온다. 
+        
+
+
     } catch(err) {
         res.status(err.status || 500).send(err.message || 'error')
     }
-
+    
 }
 
 //try {

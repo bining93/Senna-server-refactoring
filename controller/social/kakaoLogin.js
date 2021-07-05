@@ -22,9 +22,17 @@ const kakaoLogin = async (req, res) => {
         }
         */
        //토큰으로 유저 정보 카카오한테 요청하기
+        const getUserInfo = await axios.get('https://kapi.kakao.com/v2/user/me', {
+            headers: {
+                Authorization: `Bearer ${getToken.data.access_token}`,
+                'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+            }
+        })
+        console.log('getUser', getUserInfo)
 
+        //console.log('get', getUserInfo)
        //데이터 받아오면 DB에 User 데이터 생성하기
-        
+
     } catch(err) {
         console.log(err)
     }

@@ -11,15 +11,16 @@ const deleteFavorite = async (req, res) => {
     
     try {
         const nowFavorite = await User.findById(userId).select('favorite').exec()
-        console.log('favorite', nowFavorite)
+        //console.log('favorite', typeof nowFavorite.favorite[0]._id.toString())
+        //if(!nowFavorite.favorite.includes(postingId)) {
+        //    return res.status(404).send('favorite에 추가된 게시물이 아닙니다.')
+        //}
 
-        if(!nowFavorite.favorite.includes(postingId)) {
-            return res.status(404).send('favorite에 추가된 게시물이 아닙니다.')
-        }
-
+      
         //삭제할 postingId 뺀 favorite 배열 
-        const newFavorite = nowFavorite.favorite.filter(post => post !== postingId)
+        const newFavorite  = nowFavorite.favorite.filter((post) => post._id.toString() !== postingId)
         console.log('newFavorite', newFavorite)
+        
         const update = await User.findByIdAndUpdate(userId, {favorite: newFavorite}, {new:true}).exec()      
         console.log('update', update)
         if(update) {

@@ -52,13 +52,25 @@ async (accessToken, refreshToken, profile, cb) => {
 
 }
 ))
+
+passport.serializeUser(function (user, cb) {
+    console.log(`user : ${user.profile}`)
+    cb(null, user)
+})
+passport.deserializeUser(function (obj, cb) {
+    console.log(`obj : ${obj}`)
+    cb(null, obj)
+})
+
 //사용자의 로그인 요청 받고 카카오 서버에 로그인 보내는 라우터
 router.get('/kakao', passport.authenticate('kakao'))
 
 //카카오 서버로 로그인 정보를 받는 라우터 (여기서 res를 보내줌)
 router.get('/kakao/callback', passport.authenticate('kakao', {
     failureRedirect: '/'
-}), social.kakaoLogin)
+}), (req,res) => {
+    res.redirect('http://localhost:3000')
+})
 
 export default router;
 

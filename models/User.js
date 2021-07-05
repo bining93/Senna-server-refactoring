@@ -9,7 +9,6 @@ import mongoose from "mongoose";
     },
     password: {
         type: String,
-        required: true,
         minlength: 5,
     },
     profileImg: {
@@ -21,6 +20,12 @@ import mongoose from "mongoose";
     status: {
         type: Boolean,
         default: true,
+    },
+    provider: {
+        type: String
+    },
+    socialId: {
+        type: String
     }
 })
 // userSchema.methods.dudify = () => {

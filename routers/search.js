@@ -4,8 +4,8 @@ const router = Router();
 
 
 
-//router.get('/', searchController.normalSearch);
-router.get('/', searchController.test);
+router.get('/', searchController.normalSearch);
+//router.get('/', searchController.test);
 router.get('/hot', searchController.hotSearch);
 
 

@@ -44,7 +44,7 @@ app.get('/', (req,res) => {
 app.use('/user', userRouter)
 app.use('/post', postRouter)
 app.use('/search', searchRouter)
-app.use('/auth', authRouter)
+app.use('/oauth', authRouter)
 
 app.listen(port, () => {
     console.log(`server listening on ${port}`);

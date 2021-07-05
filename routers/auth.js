@@ -10,6 +10,7 @@ dotenv.config();
 
 const url = 'http://localhost:80'
 
+/*
 passport.use(new KakaoStrategy({
     clientID : process.env.KAKAO_ID,
     callbackURL : `${url}/auth/kakao/callback`
@@ -61,17 +62,18 @@ passport.deserializeUser(function (obj, cb) {
     console.log(`obj : ${obj}`)
     cb(null, obj)
 })
-
+*/
 //사용자의 로그인 요청 받고 카카오 서버에 로그인 보내는 라우터
-router.get('/kakao', passport.authenticate('kakao'))
+//router.get('/kakao', passport.authenticate('kakao'))
 
 //카카오 서버로 로그인 정보를 받는 라우터 (여기서 res를 보내줌)
-router.get('/kakao/callback', passport.authenticate('kakao', {
-    failureRedirect: '/'
-}), (req,res) => {
-    res.redirect('http://localhost:3000')
-})
+//router.get('/kakao/callback', passport.authenticate('kakao', {
+//    failureRedirect: '/'
+//}), (req,res) => {
+//    res.redirect('http://localhost:3000')
+//})
 
+router.get('/callback/kakao', social.kakaoLogin);
 export default router;
 
 /* 정보

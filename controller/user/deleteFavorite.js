@@ -1,6 +1,6 @@
 import User from '../../models/User.js';
 import Posting from '../../models/Posting.js';
-
+//req.params.id에 _id가 아닌 다른 값이 들어오는 경우..
 const deleteFavorite = async (req, res) => {
     const userId = req.params.id;
     const { postingId } = req.body;
@@ -16,7 +16,9 @@ const deleteFavorite = async (req, res) => {
         //    return res.status(404).send('favorite에 추가된 게시물이 아닙니다.')
         //}
 
-      
+        if(!nowFavorite) {
+            return res.status(401).send('찾을 수 없는 유저입니다.')
+        }
         //삭제할 postingId 뺀 favorite 배열 
         const newFavorite  = nowFavorite.favorite.filter((post) => post._id.toString() !== postingId)
         console.log('newFavorite', newFavorite)

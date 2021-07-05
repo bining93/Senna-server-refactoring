@@ -28,7 +28,7 @@ const favorite = async (req, res) => {
             //return res.status(401).send('이미 추가된 게시물 입니다.')
         //} 
  
-        let curFavorite = userInfo.favorite || []
+        let curFavorite = userInfo.favorite || {}
 
         const postingInfo = await Posting.findById(postingId)
         console.log('postingInfo', postingInfo)

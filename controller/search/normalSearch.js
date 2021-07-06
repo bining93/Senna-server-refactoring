@@ -14,7 +14,7 @@ const normalSearch = (req, res) => {
     
         //정규표현식 객체 이용 
         //두번째 인자 -> i는 대소문자 구분 false
-        Posting.find({ $or : searchFd})
+        Posting.find({ $or : searchFd}).sort('-created_date')
         .then(result => {
             console.log('result', result)
             res.send({

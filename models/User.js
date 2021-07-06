@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import findOrCreate from 'mongoose-findorcreate';
 
   const userSchema = mongoose.Schema({
     userId: {
@@ -32,6 +33,7 @@ import mongoose from "mongoose";
 //     this.name = this.name + '-dude';
 //     return this.name;
 // }
+userSchema.plugin(findOrCreate);
 const User = mongoose.model("User", userSchema);
 // 모델의 이름과 스키마를 이용해 모델의 정의함.
 export default User;

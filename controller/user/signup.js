@@ -8,11 +8,11 @@ const signup = async (req,res) => {
     //s3 버킷에 multer를 연동하면 location안에 경로가 들어가있다. 
     //선택사항이라 초기값을 빈문자열로
     let profileImg, type = ''  
-    
+
     if(!userId || !password || userId === 'undefined' || password === 'undefined') {
         return res.status(400).send('필수 항목을 입력해주세요')
     } 
-
+    
     if(req.file !== undefined) {
         profileImg = req.file.location
         type = req.file.mimetype.split('/')[1]

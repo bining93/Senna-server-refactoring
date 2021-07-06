@@ -11,22 +11,10 @@ const favorite = async (req, res) => {
     
     try {
         let userInfo = await User.findById(id).exec()
-        /*
-        let result = userInfo.favorite.map(post => {
-            console.log('post', typeof post._id)
-            console.log('id', typeof postingId)
-            if(post._id === postingId) {
-                return false
-            }
-            return true
-        })
-        console.log('result', result)
-        */
+
         if(!userInfo || !userInfo.status) {
             return res.status(401).send('존재하지 않는 유저입니다.')
-        } //else if() {
-            //return res.status(401).send('이미 추가된 게시물 입니다.')
-        //} 
+        }
  
         let curFavorite = userInfo.favorite || {}
 
@@ -52,11 +40,6 @@ const favorite = async (req, res) => {
     
 }
 
-//try {
-//
-//} catch(err) {
-//    
-//}
 export default favorite;
 
 //유저가 게시물 좋아요를 누르면 서버에 저장할 수 있도록 요청한다.

@@ -11,10 +11,6 @@ const deleteFavorite = async (req, res) => {
     
     try {
         const nowFavorite = await User.findById(userId).select('favorite').exec()
-        //console.log('favorite', typeof nowFavorite.favorite[0]._id.toString())
-        //if(!nowFavorite.favorite.includes(postingId)) {
-        //    return res.status(404).send('favorite에 추가된 게시물이 아닙니다.')
-        //}
 
         if(!nowFavorite) {
             return res.status(401).send('찾을 수 없는 유저입니다.')

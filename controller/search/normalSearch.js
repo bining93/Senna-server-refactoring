@@ -30,6 +30,8 @@ const normalSearch = (req, res) => {
         // if(!searchHashtag) {
         //     Search.create({hashtag, searchcount, likecount, })
         // }
+
+        //서치할 때 search DB에 검색어 넣기
     }
 }
 

@@ -1,5 +1,5 @@
 import Search from "../../models/Search.js";
-
+//
 const hotSearch = (req, res) => {
     Search.find().sort('-searchcount').limit(1).then(
         (result) => {

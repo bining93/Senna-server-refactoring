@@ -2,7 +2,7 @@ import User from '../../models/User.js'
 import s3 from '../../config/s3.js'
 import { checkType } from '../../utils/multer.js';
 import { encryption } from '../../utils/setPwd.js';
-
+//
 const updateProfile = async (req, res) => {
     
     const { password } = req.body;

@@ -1,16 +1,32 @@
-const logout = (req, res) => {
-    const { authorization } = req.headers;
+import axios from 'axios';
 
+
+const logout = async (req, res) => {
+    const { authorization, kakaokey } = req.headers;
+    const { refreshToken } = req.cookies;
+    console.log('kakaokey', kakaokey)
     console.log(authorization)
+
     if(!authorization) {
-        res.status(400).send('잘못된 접근방식입니다')
-    } else {
-        if (req.headers.authorization || req.cookies.refreshToken) {
-            delete req.headers.authorization;
-            res.clearCookie('refreshToken');
-            res.status(205).send('로그아웃 되었습니다.');
-        }
+        return res.status(400).send('token not provided')
+    } else if(!kakaokey) {
+        return res.status(400).send('kakaokey not provided')
     }
+    
+    try {
+        delete req.headers.authorization;
+        res.clearCookie('refreshToken');
+        if (!kakaokey) {
+            return res.status(205).send('로그아웃 되었습니다.');
+        } 
+        const kakaoLogout = await axios.post('https://kapi.kakao.com/v1/user/logout', {}, {Authorization: `Bearer ${kakaokey}`})
+        console.log('kakaoLogout', kakaoLogout)
+        return res.status(205).send('카카오 로그아웃 되었습니다.');
+        
+    } catch(err) {
+        res.status(err.status || 500).send(err.message || 'error')
+    }
+
 }
 
 export default logout;

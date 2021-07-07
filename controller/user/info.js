@@ -1,7 +1,6 @@
 import User from '../../models/User.js';
 import Posting from '../../models/Posting.js';
-import jwt from 'jsonwebtoken';
-import Search from '../../models/Search.js';
+import { checkToken } from '../../utils/tokenFunc.js';
 
 const info = async (req, res) => {
     //req 헤더의 authorization에 access token이 담겨온다
@@ -16,12 +15,8 @@ const info = async (req, res) => {
     
     try {
         const token = authorization.split(' ')[1]
-        //유저 정보로 만들어서 
-        const data = jwt.verify( token, process.env.TOKEN_SECRET, {
-            expiresIn: '1h',
-        });
-        console.log('data', data._id
-        )
+        const data = checkToken(token)
+
         const userInfo = await User.findById(data._id)
 
         if(!userInfo) {

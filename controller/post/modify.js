@@ -6,11 +6,13 @@ import { checkType } from '../../utils/multer.js';
 const modify = async (req, res) => {
     //postingId 값이 params에 담겨져 온다. 
     //console.log('req', req.params.id)
-    const { userId, content } = req.body;
+    const { userId, content, hashtag } = req.body;
     const postingId = req.params.id;
     const images = req.files;
-    const path = images.map(img => img.location)
     const type = images.map(img => img.mimetype.split('/')[1])
+    let path = images.map(img => img.location)
+    let tagArr = hashtag.split('#').slice(1).map(tag => tag.replace(',', ''))
+    console.log('tagArr', tagArr)
 
     if(!userId || userId === 'undefined') {
         return res.status(400).send('필수 요소가 들어오지 않았습니다.')
@@ -20,17 +22,24 @@ const modify = async (req, res) => {
 
     try {
         //이전에 image를 불러온다.
-        const beforeInfo = await Posting.findOne({_id: postingId}).select('image userId status')
+        const beforeInfo = await Posting.findOne({_id: postingId}).select('image userId hashtag content status')
         console.log('beforeInfo', beforeInfo)
-        let beforeImg = beforeInfo.image;
-
+        const beforeImg = beforeInfo.image
+        //if(!images) {
+        //    type = [...beforeInfo.image];
+        //} else if(!content) {
+        //    content = beforeInfo.content;
+        //} else if(!hashtag) {
+        //    tagArr = [...beforeInfo.hashtag];
+        //}
+    
         if(!beforeInfo.status) {
             return res.status(404).send('존재하지 않는 게시물 입니다.')
         } else if(beforeInfo.userId !== userId) {
             return res.status(401).send('게시물에 수정 권한이 없는 유저입니다.')
         } 
         //new option을 써서 수정 후 값을 리턴값으로 받도록 한다.
-        const update = await Posting.findByIdAndUpdate(postingId, {image: path, content: content}, {new:true}).exec()
+        const update = await Posting.findByIdAndUpdate(postingId, {image: path, content: content, hashtag: tagArr}, {new:true, upsert:true}).exec()
         console.log('update', update)
         
         let deleteImg = beforeImg.filter(img => !update.image.includes(img)).map(el => el.split('com/'))

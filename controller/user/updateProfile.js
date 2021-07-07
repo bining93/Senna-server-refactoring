@@ -1,13 +1,14 @@
 import User from '../../models/User.js'
 import s3 from '../../config/s3.js'
 import { checkType } from '../../utils/multer.js';
+import { encryption } from '../../utils/setPwd.js';
 
 const updateProfile = async (req, res) => {
     
     const { password } = req.body;
     const profileImg = req.file.location;
     const type = req.file.mimetype.split('/')[1]
-
+    const encryptedPwd = encryption(password);
     if(!checkType(type)) {
         return res.status(400).send('잘못된 파일 형식입니다.')
     } else {
@@ -30,7 +31,7 @@ const updateProfile = async (req, res) => {
                     }
                     console.log('기존 이미지 삭제', data)
                 });
-                User.findByIdAndUpdate(id, { password: password, profileImg: profileImg },
+                User.findByIdAndUpdate(id, { password: encryptedPwd, profileImg: profileImg },
                     function (err, docs) {
                         if (err){
                             console.log(err)

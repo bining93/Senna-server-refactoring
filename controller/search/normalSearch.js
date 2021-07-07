@@ -2,6 +2,8 @@ import Posting from "../../models/Posting.js";
 import Search from "../../models/Search.js";
 
 const normalSearch = (req, res) => {
+    //const {hashtag} = req.body;
+    //검색어가 search의 synonym의 배열에 없을경우, 새 hashtag로 create 해주기
     console.log('req.query',req.query.sch) //--> { sch: 'value' }
 
     if(!req.query.sch) {
@@ -26,10 +28,7 @@ const normalSearch = (req, res) => {
         .catch(err => {
             throw err;
         })
-        // const searchHashtag = Search.findOne({hashtag});
-        // if(!searchHashtag) {
-        //     Search.create({hashtag, searchcount, likecount, })
-        // }
+        
     }
 }
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { checkToken } from '../../utils/tokenFunc.js';
 
 const logout = async (req, res) => {
     const { authorization, kakaokey } = req.headers;
@@ -9,19 +9,22 @@ const logout = async (req, res) => {
 
     if(!authorization) {
         return res.status(400).send('token not provided')
-    } else if(!kakaokey) {
-        return res.status(400).send('kakaokey not provided')
-    }
+    } 
     
     try {
+        const token = authorization.split(' ')[1]
+        const check = checkToken(token)
+        console.log('token', check)
         delete req.headers.authorization;
+        console.log('author', req.headers.authorization)
         res.clearCookie('refreshToken');
         if (!kakaokey) {
             return res.status(205).send('로그아웃 되었습니다.');
-        } 
-        const kakaoLogout = await axios.post('https://kapi.kakao.com/v1/user/logout', {}, {Authorization: `Bearer ${kakaokey}`})
-        console.log('kakaoLogout', kakaoLogout)
-        return res.status(205).send('카카오 로그아웃 되었습니다.');
+        } else {
+            const kakaoLogout = await axios.post('https://kapi.kakao.com/v1/user/logout', {}, {headers: {Authorization: `Bearer ${kakaokey}`}})
+            console.log('kakaoLogout', kakaoLogout)
+            return res.status(205).send('카카오 로그아웃 되었습니다.');
+        }
         
     } catch(err) {
         res.status(err.status || 500).send(err.message || 'error')
@@ -39,3 +42,5 @@ if (req.headers.authorization || req.cookies.Authorization) {
 } else {
 }
 */
+
+//H8SL0row7bfMvV5BGITibb2llfrox2Im-h2BhworDNIAAAF6f9mofQ

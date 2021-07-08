@@ -39,7 +39,7 @@ const modify = async (req, res) => {
             return res.status(401).send('게시물에 수정 권한이 없는 유저입니다.')
         } 
         //new option을 써서 수정 후 값을 리턴값으로 받도록 한다.
-        const update = await Posting.findByIdAndUpdate(postingId, {image: path, content: content, hashtag: tagArr}, {new:true, upsert:true}).exec()
+        const update = await Posting.findByIdAndUpdate(postingId, {$set: {image: path, content: content, hashtag: tagArr} }, {new:true}).exec()
         console.log('update', update)
         
         let deleteImg = beforeImg.filter(img => !update.image.includes(img)).map(el => el.split('com/'))

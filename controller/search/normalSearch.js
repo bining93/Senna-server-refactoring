@@ -1,10 +1,9 @@
 import Posting from "../../models/Posting.js";
 import Search from "../../models/Search.js";
 
-const normalSearch = (req, res) => {
+const normalSearch = async (req, res) => {
     //const {hashtag} = req.body;
     //검색어가 search의 synonym의 배열에 없을경우, 새 hashtag로 create 해주기
-    console.log('req.query',req.query.sch) //--> { sch: 'value' }
 
     if(!req.query.sch) {
         res.status(400).send('query가 들어오지 않았습니다.')

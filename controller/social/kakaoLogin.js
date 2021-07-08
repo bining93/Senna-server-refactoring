@@ -35,6 +35,10 @@ const kakaoLogin = async (req, res) => {
         const accessToken = getAccessToken({ _id, userId, favorite, profileImg, status })   
         const refreshToken = getRefreshToken({ _id, userId, favorite, profileImg, status })
         
+        //Post에서 내가 쓴 글을 찾아온다.
+        const findPosting = await Posting.find().where('userId').equals(userId)
+        console.log('find', findPosting)
+
         // 생성된 refresh token을 쿠키에 담아줍니다
         res.cookie('refreshToken', refreshToken, {
           sameSite: 'none',
@@ -47,6 +51,7 @@ const kakaoLogin = async (req, res) => {
           userId: userId,
           favorite,
           profileImg,
+          uploadList: findPosting,
           status,
           accessToken, 
           message: 'accessToken'
@@ -59,3 +64,4 @@ const kakaoLogin = async (req, res) => {
 }
 
 export default kakaoLogin;
+

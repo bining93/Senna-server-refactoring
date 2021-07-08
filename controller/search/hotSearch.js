@@ -10,10 +10,7 @@ const hotSearch = (req, res) => {
             })
             //Search.findByIdAndUpdate({_id: result[0]._id}, {$inc: {searchcount: 1}}).then()
         }
-        
     )
-    
-    
     
 }
 

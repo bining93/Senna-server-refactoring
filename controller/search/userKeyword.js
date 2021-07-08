@@ -5,8 +5,21 @@ const userKeyword = async (req, res) => {
     //유저 아이디를 받아올 때 토큰 or param??? 
     const userFavorite = await User.findOne({userId: 'test77'}).select('favorite')
     //console.log('user', userFavorite.favorite)
+    //해시태그만 뽑아온다....
     let hashtag = userFavorite.favorite.map(info => info.hashtag).flat()
+    //카운트 구하기 (효율적 알고리즘이 뭘까유)
+    let count = {}
+    hashtag.forEach(el => {
+        console.log('el', el)
+    })
+
+    //해시태그에서 나온 값들을 카운트한다...
+    //카운트해서 가장 많이 나온 해시태그들 3개를 뽑는다.
+    //너무 단순한 알고리즘이야... 
+    //관련 있는것들만 보내줘?
     console.log('hashtag', hashtag)
+
+    
     
     /*
     [

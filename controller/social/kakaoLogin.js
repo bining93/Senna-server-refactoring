@@ -1,13 +1,16 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 import User from '../../models/User.js'
+import Posting from '../../models/Posting.js';
 import { getAccessToken, getRefreshToken } from '../../utils/tokenFunc.js';
 dotenv.config();
 
 const kakaoLogin = async (req, res) => {
     const { authorization } = req.headers;
     console.log('authorization', authorization)
-
+    if(!authorization) {
+        return res.status(400).send('토큰이 들어오지 않았습니다.')
+    }
     try {
         //토큰으로 유저 정보 카카오한테 요청하기
         const getUserinfo = await axios.get(`https://kapi.kakao.com/v2/user/me`, 

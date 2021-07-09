@@ -28,7 +28,7 @@ import findOrCreate from 'mongoose-findorcreate';
     socialId: {
         type: String
     }
-})
+}, { timestamps: { createdAt: 'created_at'}})
 // userSchema.methods.dudify = () => {
 //     this.name = this.name + '-dude';
 //     return this.name;

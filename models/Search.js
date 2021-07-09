@@ -9,7 +9,7 @@ const searchSchema = mongoose.Schema({
     },
     searchcount: {
       type: Number,
-      default: 0
+      default: 1
     },
     likecount: {
       type: Number,
@@ -23,7 +23,7 @@ const searchSchema = mongoose.Schema({
       default: false
     },
     
-}, { timestamps: { createdAt: 'created_at', currentTime: () => Math.floor(Date.now() / 1000) } });
+}, { timestamps: { createdAt: 'created_at'}});
 
 // 모델의 이름과 스키마를 이용해 모델의 정의함.
 const Search = mongoose.model("Search", searchSchema);

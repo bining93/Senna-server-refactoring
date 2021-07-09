@@ -1,22 +1,60 @@
 import Posting from "../../models/Posting.js";
 import User from '../../models/User.js';
+import { checkToken } from '../../utils/tokenFunc.js';
 
 const userKeyword = async (req, res) => {
     //유저 아이디를 받아올 때 토큰 or param??? 
-    const userFavorite = await User.findOne({userId: 'test77'}).select('favorite')
-    //console.log('user', userFavorite.favorite)
-    //해시태그만 뽑아온다....
-    let hashtag = userFavorite.favorite.map(info => info.hashtag).flat()
-    //카운트 구하기 (효율적 알고리즘이 뭘까유)
-    let count = {}
-    hashtag.forEach(el => {
-        console.log('el', el)
-        if(count[el] === undefined) {
-            count[el] = 0;
+    const { authorization } = req.headers;
+    console.log(authorization)
+
+    if (!authorization) {
+        // 일치하는 유저가 없을 경우
+        return res.status(400).send('잘못된 접근 방식입니다');
+    } 
+
+    try {
+        const token = authorization.split(' ')[1]
+        const data = checkToken(token)
+
+        const userFavorite = await User.findOne({userId: data.userId}).select('favorite')
+        //console.log('user', userFavorite.favorite)
+       
+        if(userFavorite.favorite.length === 0) {
+            return res.send({
+                keyword: '',
+                message: '좋아요 게시물 없음'
+            })
         }
-        count[el]++;
-    })
-    console.log('count', count)
+
+        let countArr = []
+        let obj = {}
+        userFavorite.favorite.map(info => info.hashtag).flat().forEach(el => {
+            let toLower = el.toLowerCase()
+        
+            if(obj[toLower] === undefined) {
+                obj[toLower] = 0
+            } 
+            obj[toLower]++
+        })
+        console.log('obj', obj)
+    
+        for(let [key, value] of Object.entries(obj)) {
+            countArr.push({word: key, count: value})
+        }
+        countArr.sort((a,b) => b.count - a.count)
+    
+
+        console.log('countArr', countArr)
+    
+        return res.send({
+            keyword: countArr[0].word,
+            message: '유저 추천 키워드'
+        })
+    } catch(err) {
+        res.status(err.status || 500).send(err.message || 'error')
+    }
+  
+
     
     //해시태그에서 나온 값들을 카운트한다...
     //카운트해서 가장 많이 나온 해시태그들 3개를 뽑는다.

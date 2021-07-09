@@ -10,6 +10,9 @@ dotenv.config();
 
 const url = 'http://localhost:80'
 
+router.get('/callback/kakao', social.kakaoLogin);
+
+router.delete('/d/:id', social.kakaoWithdrawal);
 /*
 passport.use(new KakaoStrategy({
     clientID : process.env.KAKAO_ID,
@@ -73,7 +76,6 @@ passport.deserializeUser(function (obj, cb) {
 //    res.redirect('http://localhost:3000')
 //})
 
-router.get('/callback/kakao', social.kakaoLogin);
 export default router;
 
 /* 정보

@@ -17,7 +17,7 @@ const port = 80;
 DBconnect();
 
 app.use(cors({
-    origin: true,
+    origin: ['http://localhost:3000', 'https://www.senna.world', 'https://senna.world'],
     methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
     credentials: true
 }));

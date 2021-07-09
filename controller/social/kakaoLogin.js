@@ -35,8 +35,8 @@ const kakaoLogin = async (req, res) => {
         }
         const { _id, userId, favorite, profileImg, status} = userInfo.doc
         //토큰 발급 받기
-        const accessToken = getAccessToken({ _id, userId, favorite, profileImg, status })   
-        const refreshToken = getRefreshToken({ _id, userId, favorite, profileImg, status })
+        const accessToken = getAccessToken({ _id, userId })   
+        const refreshToken = getRefreshToken({ _id, userId })
         
         //Post에서 내가 쓴 글을 찾아온다.
         const findPosting = await Posting.find().where('userId').equals(userId)

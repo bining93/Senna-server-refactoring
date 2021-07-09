@@ -4,7 +4,7 @@ import { checkToken } from '../../utils/tokenFunc.js';
 const logout = async (req, res) => {
     const { authorization, kakaokey } = req.headers;
     const { refreshToken } = req.cookies;
-    console.log('kakaokey', kakaokey)
+    console.log('kakaokey', kakaokey) 
     console.log(authorization)
 
     if(!authorization) {
@@ -20,8 +20,8 @@ const logout = async (req, res) => {
         res.clearCookie('refreshToken');
         if (!kakaokey) {
             return res.status(205).send('로그아웃 되었습니다.');
-        } else {
-            const kakaoLogout = await axios.post('https://kapi.kakao.com/v1/user/logout', {}, {headers: {Authorization: `Bearer ${kakaokey}`}})
+        } else if(kakaokey) {
+            const kakaoLogout = await axios.post('https://kapi.kakao.com/v1/user/logout', {}, {headers: {Authorization: `${kakaokey}`}})
             console.log('kakaoLogout', kakaoLogout)
             return res.status(205).send('카카오 로그아웃 되었습니다.');
         }

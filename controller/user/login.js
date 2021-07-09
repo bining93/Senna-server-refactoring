@@ -26,8 +26,8 @@ const login = async (req, res) => {
         // 일치하는 유저가 있을 경우
         // access token, refresh token 두가지를 생성
         const { _id, userId, favorite, profileImg, status } = data;
-        const accessToken = getAccessToken({ _id, userId, favorite, profileImg, status })   
-        const refreshToken = getRefreshToken({ _id, userId, favorite, profileImg, status })
+        const accessToken = getAccessToken({ _id, userId })   
+        const refreshToken = getRefreshToken({ _id, userId })
         
         // 생성된 refresh token을 쿠키에 담아줍니다
         res.cookie('refreshToken', refreshToken, {

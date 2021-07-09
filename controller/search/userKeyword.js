@@ -11,16 +11,18 @@ const userKeyword = async (req, res) => {
     let count = {}
     hashtag.forEach(el => {
         console.log('el', el)
+        if(count[el] === undefined) {
+            count[el] = 0;
+        }
+        count[el]++;
     })
-
+    console.log('count', count)
+    
     //해시태그에서 나온 값들을 카운트한다...
     //카운트해서 가장 많이 나온 해시태그들 3개를 뽑는다.
     //너무 단순한 알고리즘이야... 
     //관련 있는것들만 보내줘?
-    console.log('hashtag', hashtag)
 
-    
-    
     /*
     [
         {"image":["https://senna-image.s3.ap-northeast-2.amazonaws.com/1625139405510.jpeg"],

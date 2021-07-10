@@ -8,7 +8,6 @@ const userKeyword = async (req, res) => {
     console.log(authorization)
 
     if (!authorization) {
-        // 일치하는 유저가 없을 경우
         return res.status(400).send('잘못된 접근 방식입니다');
     } 
 

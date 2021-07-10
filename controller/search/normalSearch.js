@@ -16,7 +16,7 @@ const normalSearch = async (req, res) => {
     
         //정규표현식 객체 이용 
         //두번째 인자 -> i는 대소문자 구분 false
-        await Posting.find({ $or : searchFd})
+        await Posting.find({ $or : searchFd}).where('status').equals('true').sort('-created_date')
         .then(result => {
             console.log('result', result)
             res.send({
@@ -28,8 +28,9 @@ const normalSearch = async (req, res) => {
         .catch(err => {
             throw err;
         })
+        
         const tags = await Search.find()
-        .where('searchcount').gt(0);
+        .where('searchcount').gte(1);
         let isExist = false;
         tags.map(el => {
             if(el.hashtag === hashtag) {

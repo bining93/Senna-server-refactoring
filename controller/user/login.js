@@ -21,7 +21,7 @@ const login = async (req, res) => {
       } else if(data.status === false){
         res.status(404).send('존재하지 않는 유저입니다');
       } else if(decryptedPwd !== password) {
-        res.status(401).send('아이디와 비밀번호를 확인해주세요');
+        res.status(401).send('비밀번호를 확인해주세요');
       } else {
         // 일치하는 유저가 있을 경우
         // access token, refresh token 두가지를 생성

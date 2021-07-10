@@ -12,7 +12,8 @@ const url = 'http://localhost:80'
 
 router.get('/callback/kakao', social.kakaoLogin);
 
-router.delete('/d/:id', social.kakaoWithdrawal);
+// d/:id -> /:id
+router.delete('/:id', social.kakaoWithdrawal);
 /*
 passport.use(new KakaoStrategy({
     clientID : process.env.KAKAO_ID,

@@ -9,17 +9,19 @@ const modify = async (req, res) => {
     const { userId, content, hashtag } = req.body;
     const postingId = req.params.id;
     const images = req.files;
+
+    if(!userId || userId === 'undefined') {
+        return res.status(400).send('필수 요소가 들어오지 않았습니다.')
+    } 
+
     const type = images.map(img => img.mimetype.split('/')[1])
     let path = images.map(img => img.location)
     let tagArr = hashtag.split('#').slice(1).map(tag => tag.replace(',', ''))
     console.log('tagArr', tagArr)
-
-    if(!userId || userId === 'undefined') {
-        return res.status(400).send('필수 요소가 들어오지 않았습니다.')
-    } else if(!checkType(type)) {
+    
+    if(!checkType(type)) {
         return res.status(400).send('잘못된 파일 형식입니다.')
     }
-
     try {
         //이전에 image를 불러온다.
         const beforeInfo = await Posting.findOne({_id: postingId}).select('image userId hashtag content status')

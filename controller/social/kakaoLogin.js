@@ -9,7 +9,7 @@ const kakaoLogin = async (req, res) => {
     const { authorization } = req.headers;
     console.log('authorization', authorization)
     if(!authorization) {
-        return res.status(400).send('토큰이 들어오지 않았습니다.')
+        return res.status(400).send('잘못된 접근 방식입니다.')
     }
     try {
         //토큰으로 유저 정보 카카오한테 요청하기
@@ -57,7 +57,7 @@ const kakaoLogin = async (req, res) => {
           uploadList: findPosting,
           status,
           accessToken, 
-          message: 'accessToken'
+          message: '카카오 로그인 성공'
         });
         
     } catch(err) {

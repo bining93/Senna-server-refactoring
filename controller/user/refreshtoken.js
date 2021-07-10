@@ -22,7 +22,7 @@ const refreshtoken = async (req, res) => {
         } else {
             const { _id, userId, favorite, profileImg, status } = userInfo;
             
-            const accessToken = getAccessToken({ _id, userId, favorite, profileImg, status })
+            const accessToken = getAccessToken({ _id, userId })
             res.send({            
                 accessToken: accessToken,
                 data: { _id, userId, favorite, profileImg, status }

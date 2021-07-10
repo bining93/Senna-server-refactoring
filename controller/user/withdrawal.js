@@ -8,7 +8,7 @@ const withdrawal = async (req,res) => {
     console.log('password', password)
     console.log('id', id)
     if(!password) {
-        return res.status(400).send('비밀번호가 들어오지 않았습니다.')
+        return res.status(400).send('필수요소가 들어오지 않았습니다.')
     }
 
     try {

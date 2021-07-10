@@ -6,14 +6,14 @@ const deleteFavorite = async (req, res) => {
     const { postingId } = req.body;
 
     if(!postingId) {
-        return res.status(400).send('postingId가 들어오지 않았습니다.')
+        return res.status(400).send('필수요소가 들어오지 않았습니다.')
     } 
     
     try {
         const nowFavorite = await User.findById(userId).select('favorite').exec()
 
         if(!nowFavorite) {
-            return res.status(401).send('찾을 수 없는 유저입니다.')
+            return res.status(401).send('찾을 수 없는 게시물입니다.')
         }
         //삭제할 postingId 뺀 favorite 배열 
         const newFavorite  = nowFavorite.favorite.filter((post) => post._id.toString() !== postingId)

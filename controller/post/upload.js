@@ -9,6 +9,11 @@ const upload = async (req, res) => {
     //heelo,ooo
     //img가 req.files로 들어온다. (여러장이라) 
     const images = req.files;
+
+    if(!hashtag || !content || !userId || !images || hashtag === 'undefined' || content === 'undefined' || userId === 'undefined') {
+        return res.status(400).send('필수 요소가 들어오지 않았습니다.')
+    } 
+
     //console.log('images', images)
     const path = images.map(img => img.location)
     const type = images.map(img => img.mimetype.split('/')[1])
@@ -17,14 +22,11 @@ const upload = async (req, res) => {
     //console.log('path', path)
     let tagArr = hashtag.split('#').slice(1) 
 
-    if(!hashtag || !content || !userId || !images || hashtag === 'undefined' || content === 'undefined' || userId === 'undefined') {
-        return res.status(400).send('필수 요소가 들어오지 않았습니다.')
-    } else if(!checkType(type)) {
+    if(!checkType(type)) {
         return res.status(400).send('잘못된 파일 형식입니다.')
     }
-
+    
     try {
-        
         const newPosting = await Posting.create({
             userId,
             content,

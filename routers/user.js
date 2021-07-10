@@ -9,23 +9,23 @@ router.post('/login', userController.login);
 
 router.get('/logout', userController.logout);
 
+router.post('/checkid', userController.checkId);
+
+router.post('/signup', upload.single('avatar'), userController.signup);
+
 router.get('/info', userController.info);
 
 router.get('/request_token', userController.refreshtoken)
 
+//patch /d/:id -> delete /:id 수정 
+router.delete('/:id', userController.withdrawal);
+
 router.patch('/profile/:id', upload.single('profileImg'), userController.updateProfile);
 
-router.patch('/d/:id', userController.withdrawal);
-
-router.post('/upload', upload.single('avatar'), userController.upload);
-
-router.post('/signup', upload.single('avatar'), userController.signup);
-
-router.post('/checkid', userController.checkId);
-
-router.patch('/favorite/:id', userController.favorite);
-
-router.delete('/favorite/:id', userController.deleteFavorite);
+// favorite/:id -> /:id/favorite
+router.patch('/:id/favorite', userController.favorite);
+// favorite/:id -> /:id/favorite
+router.delete('/:id/favorite', userController.deleteFavorite);
 
 
 

@@ -42,7 +42,6 @@ const signup = async (req,res) => {
         });
         
     } catch(err) {
-        deleteOne(profileImg)
         res.status(err.status || 500).send(err.message || 'error')
     }
 }

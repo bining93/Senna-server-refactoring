@@ -8,6 +8,9 @@ const iv = Buffer.alloc(16, 0);
 
 //비밀번호 암호화  
 const encryption = (data) => {
+    if(!data) {
+        return ''
+    }
     const cipher = crypto.createCipheriv(algorithm, key, iv);   //Cipher 객체 생성
     //인코딩 방식에 따라 암호화한다. data의 인자로 password가 넘어온다. 비밀번호는 utf8 형식 
     let encrypted = cipher.update(data, 'utf8', 'base64'); 
@@ -19,6 +22,9 @@ const encryption = (data) => {
 
 //비밀번호 복호화
 const decryption = (data) => {
+    if(!data) {
+        return ''
+    }
     const decipher = crypto.createDecipheriv(algorithm, key, iv) //Decipher 객체 생성
 
     //인코딩 방식에 따라 복호화 .update(복호화할 대상(비밀번호), 인코딩, 인코딩)

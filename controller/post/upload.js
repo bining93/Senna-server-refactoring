@@ -6,11 +6,9 @@ const upload = async (req, res) => {
     const { hashtag, content, userId } = req.body;
     console.log('req.body', req.body)
     //hashtag를 formData로 보내면 이런식으로 들어온다. (배열이 아닌 string형식)
-    //heelo,ooo
-    //img가 req.files로 들어온다. (여러장이라) 
     const images = req.files;
 
-    if(!hashtag || !content || !userId || !images || hashtag === 'undefined' || content === 'undefined' || userId === 'undefined') {
+    if(!hashtag || !content || !userId || images.length === 0 || hashtag === 'undefined' || content === 'undefined' || userId === 'undefined') {
         return res.status(400).send('필수 요소가 들어오지 않았습니다.')
     } 
 
@@ -19,13 +17,13 @@ const upload = async (req, res) => {
     const type = images.map(img => img.mimetype.split('/')[1])
     //console.log(type)
     //console.log(images)
-    //console.log('path', path)
+    console.log('path', path)
     let tagArr = hashtag.split('#').slice(1) 
 
     if(!checkType(type)) {
         return res.status(400).send('잘못된 파일 형식입니다.')
     }
-    
+
     try {
         const newPosting = await Posting.create({
             userId,

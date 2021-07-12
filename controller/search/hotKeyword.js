@@ -1,6 +1,6 @@
 import Posting from "../../models/Posting.js";
 import Search from "../../models/Search.js";
-//
+
 const hotKeyword = async (req, res) => {
     //검색어가 search의 synonym의 배열에 없을경우, 새 hashtag로 create 해주기
 

@@ -68,3 +68,5 @@ const kakaoLogin = async (req, res) => {
 
 export default kakaoLogin;
 
+
+//프로필 사진 바뀌면 같이 바뀌도록 만들기

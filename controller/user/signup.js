@@ -47,7 +47,6 @@ const signup = async (req,res) => {
     } catch(err) {
         res.status(err.status || 500).send(err.message || 'error')
     }
-    
 }
 
 export default signup;

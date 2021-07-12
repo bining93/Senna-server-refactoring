@@ -6,11 +6,12 @@ import { checkType } from '../../utils/multer.js';
 const modify = async (req, res) => {
     //postingId 값이 params에 담겨져 온다. 
     //console.log('req', req.params.id)
+    console.log('req.files', req.files)
     const { userId, content, hashtag } = req.body;
     const postingId = req.params.id;
     const images = req.files;
 
-    if(!userId || userId === 'undefined') {
+    if(!userId || userId === 'undefined' || !images || images.length === 0) {
         return res.status(400).send('필수 요소가 들어오지 않았습니다.')
     } 
 
@@ -18,7 +19,7 @@ const modify = async (req, res) => {
     let path = images.map(img => img.location)
     let tagArr = hashtag.split('#').slice(1).map(tag => tag.replace(',', ''))
     console.log('tagArr', tagArr)
-    
+
     if(!checkType(type)) {
         return res.status(400).send('잘못된 파일 형식입니다.')
     }

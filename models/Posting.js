@@ -22,6 +22,7 @@ const postingSchema = mongoose.Schema({
     type: Array,
     default: []
   },
+
   status: {
     type: Boolean,
     default: true

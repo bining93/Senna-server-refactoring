@@ -10,7 +10,7 @@ const upload = async (req, res) => {
     //img가 req.files로 들어온다. (여러장이라) 
     const images = req.files;
 
-    if(!hashtag || !content || !userId || !images || hashtag === 'undefined' || content === 'undefined' || userId === 'undefined') {
+    if(!hashtag || !content || !userId || images.length === 0 || hashtag === 'undefined' || content === 'undefined' || userId === 'undefined') {
         return res.status(400).send('필수 요소가 들어오지 않았습니다.')
     } 
 
@@ -25,7 +25,7 @@ const upload = async (req, res) => {
     if(!checkType(type)) {
         return res.status(400).send('잘못된 파일 형식입니다.')
     }
-    
+
     try {
         const newPosting = await Posting.create({
             userId,

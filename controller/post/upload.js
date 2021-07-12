@@ -6,8 +6,6 @@ const upload = async (req, res) => {
     const { hashtag, content, userId } = req.body;
     console.log('req.body', req.body)
     //hashtag를 formData로 보내면 이런식으로 들어온다. (배열이 아닌 string형식)
-    //heelo,ooo
-    //img가 req.files로 들어온다. (여러장이라) 
     const images = req.files;
 
     if(!hashtag || !content || !userId || images.length === 0 || hashtag === 'undefined' || content === 'undefined' || userId === 'undefined') {
@@ -19,7 +17,7 @@ const upload = async (req, res) => {
     const type = images.map(img => img.mimetype.split('/')[1])
     //console.log(type)
     //console.log(images)
-    //console.log('path', path)
+    console.log('path', path)
     let tagArr = hashtag.split('#').slice(1) 
 
     if(!checkType(type)) {

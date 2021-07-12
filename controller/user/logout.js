@@ -3,7 +3,6 @@ import { checkToken } from '../../utils/tokenFunc.js';
 
 const logout = async (req, res) => {
     const { authorization, kakaokey } = req.headers;
-    const { refreshToken } = req.cookies;
     console.log('kakaokey', kakaokey) 
     console.log(authorization)
 

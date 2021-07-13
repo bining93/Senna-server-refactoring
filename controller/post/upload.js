@@ -3,13 +3,13 @@ import { checkType, deleteMany } from "../../utils/multer.js";
 
 //게시글 올릴 때 - 정보 받아다가 DB에 doc 생성하기
 const upload = async (req, res) => {
-    const { hashtag, content, userId } = req.body;
+    const { hashtag, content, userId, place } = req.body;
     const images = req.files;
     const path = images.map(img => img.location)
     console.log('images', images)
-    console.log('path', path)
+    console.log('place', place)
 
-    if(!hashtag || !content || !userId || images.length === 0 || hashtag === 'undefined' || content === 'undefined' || userId === 'undefined') {
+    if(!content || !userId || images.length === 0 || content === 'undefined' || userId === 'undefined') {
         deleteMany(path)
         return res.status(400).send('필수 요소가 들어오지 않았습니다.')
     } 
@@ -20,14 +20,18 @@ const upload = async (req, res) => {
     }
 
     try {
-        let tagArr = hashtag.split('#').slice(1) 
+        let tagArr;
+        if(hashtag) {
+            tagArr = hashtag.split('#').slice(1)
+        } 
         console.log('tagArr', tagArr)
-        
+
         const newPosting = await Posting.create({
             userId,
             content,
+            place,
             image: path,
-            hashtag: tagArr
+            hashtag: tagArr,
         })
         
         console.log('newPosting', newPosting);

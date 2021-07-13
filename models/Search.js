@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const searchSchema = mongoose.Schema({
-    hashtag: {
+    word: {
       type: String,
       required: true,
       unique: true,
@@ -10,10 +10,6 @@ const searchSchema = mongoose.Schema({
     searchcount: {
       type: Number,
       default: 1
-    },
-    likecount: {
-      type: Number,
-      default: 0
     },
     synonym: {
       type: Array

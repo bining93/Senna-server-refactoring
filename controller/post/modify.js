@@ -2,7 +2,7 @@ import Posting from "../../models/Posting.js";
 import { checkType, deleteMany } from '../../utils/multer.js';
 
 const modify = async (req, res) => {
-    const { userId, content, hashtag } = req.body;
+    const { userId, content, hashtag, place } = req.body;
     const postingId = req.params.id;
     const images = req.files;
     let path = images.map(img => img.location)
@@ -30,32 +30,37 @@ const modify = async (req, res) => {
             deleteMany(path)
             return res.status(401).send('게시물에 수정 권한이 없는 유저입니다.')
         } 
-        
-        const updateFunc = async (tags, str, imgs) => {
-            //content / hashtag만 선택사항이 될 수 있도록 만들기 
+
+        const updateFunc = async (tags, str, plc, imgs) => {
             let result = {}
-            if(hashtag) {
+            if(tags) {
                 let tagArr = tags.split('#').slice(1).map(tag => tag.replace(',', '')) 
                 console.log('tagArr', tagArr)
-                result = await Posting.findByIdAndUpdate(postingId, {hashtag: tagArr}, {new:true}).exec()
+                result = await Posting.findByIdAndUpdate(postingId, {hashtag: tagArr}, {new:true, upsert: true}).exec()
             }
 
             if(str) {
                 result = await Posting.findByIdAndUpdate(postingId, {content: str}, {new:true}).exec()
             } 
 
+            if(plc) {
+                result = await Posting.findByIdAndUpdate(postingId, {place: plc}, {new: true, upsert: true})
+            }
+
             if(imgs) {
                 result = await Posting.findByIdAndUpdate(postingId, {image: imgs}, {new: true})
-                //이전 이미지 지우기
-                let deleteImg = beforeImg.filter(img => !newPosting.image.includes(img))
-                console.log('deleteImg',deleteImg)
-                deleteMany(deleteImg)
             }
             return result
         }
-        const newPosting = await updateFunc(hashtag, content, path)
+
+        let newPosting = await updateFunc(hashtag, content, place, path)
         console.log('newPost', newPosting)
-    
+
+        //이전 이미지 지우기
+        let deleteImg = beforeImg.filter(img => !newPosting.image.includes(img))
+        console.log('deleteImg',deleteImg)
+        deleteMany(deleteImg)
+        
         return res.send({
            data: newPosting,
            message: "게시물 수정 성공"

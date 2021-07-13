@@ -1,7 +1,7 @@
 import User from '../../models/User.js';
 import Posting from '../../models/Posting.js';
 import { checkToken } from '../../utils/tokenFunc.js';
-
+//401 에러 처리 넣기 -> accesstoken 만료시에 
 const info = async (req, res) => {
     //req 헤더의 authorization에 access token이 담겨온다
 
@@ -16,7 +16,9 @@ const info = async (req, res) => {
     try {
         const token = authorization.split(' ')[1]
         const data = checkToken(token)
-
+        if(!data) {
+            return res.status(401).send('invalid access token')
+        }
         const userInfo = await User.findById(data._id)
 
         if(!userInfo) {

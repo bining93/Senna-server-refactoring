@@ -16,7 +16,8 @@ const upload = multer({
 const checkType = (type) => {
     console.log('type', typeof type)
     if(Array.isArray(type)) {
-        let result = type.map(img => {
+        const typeArr = type.map(img => img.mimetype.split('/')[1])
+        let result = typeArr.map(img => {
             console.log('img', img)
         	if (img === 'jpeg' || img === 'jpg' || img === 'png' || img === 'cif') {
                 return true
@@ -59,7 +60,7 @@ const deleteMany = (imgs) => {
     // ]
 
     //deleteImg ["https://senna-image.s3.ap-northeast-2.amazonaws.com/1626073188053.jpg"]
-    if(!Array.isArray(imgs)) {
+    if(!Array.isArray(imgs) || imgs.length === 0) {
         return
     }
     let deleteImg = imgs.map(el => el.split('com/'))

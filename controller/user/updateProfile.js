@@ -1,5 +1,4 @@
 import User from '../../models/User.js'
-import s3 from '../../config/s3.js'
 import { checkType, deleteOne } from '../../utils/multer.js';
 import { encryption } from '../../utils/setPwd.js';
 
@@ -32,12 +31,10 @@ const updateProfile = async (req, res) => {
             console.log('img', img)
             console.log('pwd', pwd)
             let update = ''
-            if(pwd && img) {
-                await User.updateOne({userId: userInfo.userId}, { password: pwd, profileImg: img })
-                update = 'img'
-            } else if(pwd) {           
+            if(pwd) {           
                 await User.updateOne({userId: userInfo.userId}, { password: pwd })
-            } else if(img) {
+            }   
+            if(img) {
                 await User.updateOne({userId: userInfo.userId}, { profileImg: img })
                 update = 'img'
             } 

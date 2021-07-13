@@ -1,30 +1,28 @@
 import Posting from "../../models/Posting.js";
-import { checkType } from "../../utils/multer.js";
+import { checkType, deleteMany } from "../../utils/multer.js";
 
 //게시글 올릴 때 - 정보 받아다가 DB에 doc 생성하기
 const upload = async (req, res) => {
     const { hashtag, content, userId } = req.body;
-    console.log('req.body', req.body)
-    //hashtag를 formData로 보내면 이런식으로 들어온다. (배열이 아닌 string형식)
     const images = req.files;
+    const path = images.map(img => img.location)
+    console.log('images', images)
+    console.log('path', path)
 
     if(!hashtag || !content || !userId || images.length === 0 || hashtag === 'undefined' || content === 'undefined' || userId === 'undefined') {
+        deleteMany(path)
         return res.status(400).send('필수 요소가 들어오지 않았습니다.')
     } 
 
-    //console.log('images', images)
-    const path = images.map(img => img.location)
-    const type = images.map(img => img.mimetype.split('/')[1])
-    //console.log(type)
-    //console.log(images)
-    console.log('path', path)
-    let tagArr = hashtag.split('#').slice(1) 
-
-    if(!checkType(type)) {
+    if(!checkType(images)) {
+        deleteMany(path)
         return res.status(400).send('잘못된 파일 형식입니다.')
     }
 
     try {
+        let tagArr = hashtag.split('#').slice(1) 
+        console.log('tagArr', tagArr)
+        
         const newPosting = await Posting.create({
             userId,
             content,
@@ -37,6 +35,7 @@ const upload = async (req, res) => {
             data: newPosting,
             message: '게시물 등록 성공'
         })
+
     } catch(err) {
         res.status(err.status || 500).send(err.message || 'error')
     }

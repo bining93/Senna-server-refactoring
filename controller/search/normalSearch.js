@@ -16,7 +16,7 @@ const normalSearch = async (req, res) => {
     
         //정규표현식 객체 이용 
         //두번째 인자 -> i는 대소문자 구분 false
-        await Posting.find({ $or : searchFd}).where('status').equals('true').sort('-created_date')
+        await Posting.find({ $or : searchFd}).where('status').equals('true').sort('-created_at')
         .then(result => {
             console.log('result', result)
             res.send({

@@ -1,7 +1,6 @@
 import Posting from "../../models/Posting.js";
 
 const getPosting = async (req, res) => {
-    //이미지랑 content랑 해쉬태그를 보내주기
     const postingId = req.params.id;
 
     if(!postingId) {

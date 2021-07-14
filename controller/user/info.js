@@ -2,9 +2,11 @@ import User from '../../models/User.js';
 import Posting from '../../models/Posting.js';
 
 const info = async (req, res) => {    
+    //console.log('info cokkew', req.cookies.refreshToken)
+ 
     try {
         const id = req.data._id
-        const userInfo = await User.findById(id)
+        const userInfo = await User.findById(id).sort('-created_at')
     
         if(!userInfo) {
             return res.status(404).send('일치하는 유저가 없습니다.')
@@ -12,11 +14,11 @@ const info = async (req, res) => {
         const { _id, favorite, userId, profileImg } = userInfo
         
         //Post에서 내가 쓴 글을 찾아온다.
-        const findPosting = await Posting.find().where('userId').equals(userId)
-        console.log('find', findPosting)
+        const uploadList = await Posting.find().where('userId').equals(userId).sort('-created_at')
+        console.log('find', uploadList)
 
         res.status(200).send({ 
-            data: { _id, favorite, userId, profileImg, uploadList:findPosting }
+            data: { _id, favorite, userId, profileImg, uploadList }
         });
         
     } catch(err) {

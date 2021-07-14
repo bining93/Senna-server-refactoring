@@ -15,7 +15,7 @@ router.post('/signup', upload.single('avatar'), userController.signup);
 
 router.get('/info', checkAccessToken, userController.info);
 
-router.get('/request_token', checkRefreshToken, userController.refreshtoken)
+router.get('/request-token', checkRefreshToken, userController.refreshtoken)
 
 //patch /d/:id -> delete /:id 수정 
 router.delete('/:id', userController.withdrawal);

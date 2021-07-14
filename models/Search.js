@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const searchSchema = mongoose.Schema({
-    word: {
+    hashtag: {
       type: String,
       required: true,
       unique: true,

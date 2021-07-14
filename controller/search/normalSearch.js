@@ -52,7 +52,6 @@ const normalSearch = async (req, res) => {
             if(checkPost.length !== 0){
                 Search.create({hashtag:hashtag})
             }
-            
         }
         
     }

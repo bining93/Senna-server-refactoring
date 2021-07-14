@@ -6,8 +6,7 @@ const hotKeyword = async (req, res) => {
 
     Search.find().sort('-searchcount').limit(1).then(
         (result) => {
-            console.log('result[0]', result[0])
-            console.log(result[0].likecount);
+            console.log('result[0]', result[0].hashtag)
             res.status(200).send({
                 keyword: result[0].hashtag,
                 message: '인기 검색어'

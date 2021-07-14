@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const searchSchema = mongoose.Schema({
-    hashtag: {
+    word: {
       type: String,
       required: true,
       unique: true,
@@ -11,10 +11,12 @@ const searchSchema = mongoose.Schema({
       type: Number,
       default: 1
     },
+
     likecount: {
       type: Number,
       default: 1
     },
+
     synonym: {
       type: Array
     },
@@ -23,7 +25,7 @@ const searchSchema = mongoose.Schema({
       default: false
     },
     
-}, { timestamps: { createdAt: 'created_at'}});
+});
 
 // 모델의 이름과 스키마를 이용해 모델의 정의함.
 const Search = mongoose.model("Search", searchSchema);

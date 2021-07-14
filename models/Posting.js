@@ -14,6 +14,9 @@ const postingSchema = mongoose.Schema({
   hashtag: {
     type: Array,
   },
+  place: {
+    type: String,
+  },
   likes: {
     type: Number,
     default: 0

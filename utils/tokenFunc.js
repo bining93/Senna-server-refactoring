@@ -10,7 +10,7 @@ const getAccessToken = (data) => {
 
 const getRefreshToken = (data) => {
     return jwt.sign(data, process.env.TOKEN_SECRET, {
-        expiresIn: '12h',
+        expiresIn: '1d',
     });
 }
 

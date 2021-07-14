@@ -1,5 +1,5 @@
 import Posting from '../../models/Posting.js';
-
+//게시물 삭제시 s3에 저장된 사진도 삭제하기
 const deletePost = async (req, res) => {
     if(!req.params) {
         res.status(400).send('잘못된 요청입니다.')
@@ -18,7 +18,6 @@ const deletePost = async (req, res) => {
     } catch(err) {
         res.status(err.status || 500).send(err.message || 'error')
     }
-
 
     
 }

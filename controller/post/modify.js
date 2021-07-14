@@ -53,14 +53,14 @@ const modify = async (req, res) => {
             return result
         }
 
-        let newPosting = await updateFunc(hashtag, content, place, path)
+        const newPosting = await updateFunc(hashtag, content, place, path)
         console.log('newPost', newPosting)
 
         //이전 이미지 지우기
         let deleteImg = beforeImg.filter(img => !newPosting.image.includes(img))
         console.log('deleteImg',deleteImg)
         deleteMany(deleteImg)
-        
+
         return res.send({
            data: newPosting,
            message: "게시물 수정 성공"

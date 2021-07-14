@@ -11,6 +11,12 @@ const searchSchema = mongoose.Schema({
       type: Number,
       default: 1
     },
+
+    likecount: {
+      type: Number,
+      default: 1
+    },
+
     synonym: {
       type: Array
     },

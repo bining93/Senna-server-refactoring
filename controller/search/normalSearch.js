@@ -56,7 +56,7 @@ const normalSearch = async (req, res) => {
         
     }
 }
-//
+
 export default normalSearch;
 
 

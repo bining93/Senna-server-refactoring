@@ -1,33 +1,22 @@
 import User from '../../models/User.js';
-import { checkToken, getAccessToken } from '../../utils/tokenFunc.js';
+import { getAccessToken } from '../../utils/tokenFunc.js';
 
 const refreshtoken = async (req, res) => {
-    const { refreshToken } = req.cookies;
-    console.log('resfresh', refreshToken)
-
-    if(!refreshToken) {
-        res.status(400).send('refresh token not provided');
-    } 
-
     try {
-        const data = checkToken(refreshToken)
-        console.log('data', data)
-        if(!data) {
-          return res.status(403).send('invalid refresh token, please log in again') 
-        }
+        const id = req.data._id
+        console.log('id', id)
 
-        const userInfo = await User.findById(data._id)
-        if(!userInfo) {
-            res.status(404).send('refresh token has been tempered')
-        } else {
-            const { _id, userId, favorite, profileImg, status } = userInfo;
-            
-            const accessToken = getAccessToken({ _id, userId })
-            res.send({            
-                accessToken: accessToken,
-                data: { _id, userId, favorite, profileImg, status }
-            })
-        }
+        const userInfo = await User.findById(id)
+        if(!userInfo) return res.status(404).send('refresh token has been tempered')
+    
+        const { _id, userId, favorite, profileImg, status } = userInfo;
+        
+        const accessToken = getAccessToken({ _id, userId })
+        return res.send({            
+            accessToken: accessToken,
+            data: { _id, userId, favorite, profileImg, status }
+        })
+        
     } catch(err) {
         res.status(err.status || 500).send(err.message || 'error')
     }

@@ -1,6 +1,6 @@
 import Posting from "../../models/Posting.js";
 import User from '../../models/User.js';
-import { checkToken } from '../../utils/tokenFunc.js';
+import { checkAccessToken } from '../../utils/tokenFunc.js';
 
 const userKeyword = async (req, res) => {
     //유저 아이디를 받아올 때 토큰 or param??? 
@@ -13,7 +13,7 @@ const userKeyword = async (req, res) => {
 
     try {
         const token = authorization.split(' ')[1]
-        const data = checkToken(token)
+        const data = checkAccessToken(token)
 
         const userFavorite = await User.findOne({userId: data.userId}).select('favorite')
         //console.log('user', userFavorite.favorite)

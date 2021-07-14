@@ -1,19 +1,16 @@
 import axios from 'axios';
-import { checkToken } from '../../utils/tokenFunc.js';
+import User from '../../models/User.js';
 
 const logout = async (req, res) => {
-    const { authorization, kakaokey } = req.headers;
+    const { kakaokey } = req.headers;
     console.log('kakaokey', kakaokey) 
-    console.log(authorization)
-
-    if(!authorization) {
-        return res.status(400).send('token not provided')
-    } 
     
     try {
-        const token = authorization.split(' ')[1]
-        const check = checkToken(token)
-        console.log('token', check)
+        console.log('token!!!!', req.data)
+        const id = req.data._id
+        const findUser = await User.findById(id)
+        if(!findUser) return res.status(404).send('일치하는 유저가 없습니다.')
+        
         delete req.headers.authorization;
         console.log('author', req.headers.authorization)
         res.clearCookie('refreshToken');
@@ -32,14 +29,3 @@ const logout = async (req, res) => {
 }
 
 export default logout;
-
-/*
-if (req.headers.authorization || req.cookies.Authorization) {
-    delete req.headers.authorization;
-    res.clearCookie('Authorization');
-    res.status(205).send({ message: 'logout success' });
-} else {
-}
-*/
-
-//H8SL0row7bfMvV5BGITibb2llfrox2Im-h2BhworDNIAAAF6f9mofQ

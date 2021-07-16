@@ -22,12 +22,9 @@ const kakaoLogin = async (req, res) => {
         const profileImage = getUserinfo.data.properties.profile_image;
         const email = getUserinfo.data.kakao_account.email;
         const id = getUserinfo.data.id;
-        // console.log("profile img: ", profile_img);
-        // console.log("email: ", email);
-        // console.log("id: ", id);
 
         //유저 찾기 or DB 저장 
-        const userInfo = await User.findOrCreate({userId: email}, {profileImg: profileImage, socialId: id, provider:'kakao'});
+        const userInfo = await User.findOrCreate({userId: email}, {profileImg: profileImage, socialId: id, provider:'kakao'})
         console.log('userInfo', userInfo)
 
         if(!userInfo) {
@@ -39,8 +36,8 @@ const kakaoLogin = async (req, res) => {
         const refreshToken = getRefreshToken({ _id, userId })
         
         //Post에서 내가 쓴 글을 찾아온다.
-        const findPosting = await Posting.find().where('userId').equals(userId)
-        console.log('find', findPosting)
+        const uploadList = await Posting.find().where('userId').equals(userId).sort('-created_at');
+        console.log('find', uploadList)
 
         // 생성된 refresh token을 쿠키에 담아줍니다
         res.cookie('refreshToken', refreshToken, {
@@ -54,7 +51,7 @@ const kakaoLogin = async (req, res) => {
           userId: userId,
           favorite,
           profileImg,
-          uploadList: findPosting,
+          uploadList,
           status,
           accessToken, 
           message: '카카오 로그인 성공'

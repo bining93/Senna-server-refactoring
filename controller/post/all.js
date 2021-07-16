@@ -3,7 +3,7 @@ import Posting from "../../models/Posting.js";
 const all = async (req, res) => {
     try {
         //최신 작성한 게시물 순으로 정렬
-        const allPosting = await Posting.find({status: true}).sort('-created_date')
+        const allPosting = await Posting.find({status: true}).sort('-created_at')
         console.log(allPosting)
         return res.send({
             data: allPosting,

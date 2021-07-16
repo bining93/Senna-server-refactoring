@@ -6,6 +6,4 @@ router.get('/', searchController.normalSearch);
 
 router.get('/hot', searchController.hotKeyword);
 
-router.get('/suggest', searchController.userKeyword);
-
 export default router;

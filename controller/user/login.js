@@ -4,9 +4,9 @@ import { getAccessToken, getRefreshToken } from '../../utils/tokenFunc.js';
 
 //로그인 할 때 _id도 보내주는 걸루~
 const login = async (req, res) => {
-
+  console.log('req.headers', req.headers)
   const { userId, password } = req.body;
-
+  console.log('userId, password', req.body)
   if(!userId || !password) {
     return res.status(400).send('필수요소를 넣어주세요.')
   }
@@ -31,25 +31,19 @@ const login = async (req, res) => {
       const { _id, userId, favorite, profileImg, status } = userInfo;   
       const accessToken = getAccessToken({ _id, userId })   
       const refreshToken = getRefreshToken({ _id, userId })
-      
+
       // 생성된 refresh token을 쿠키에 담아줍니다
       res.cookie('refreshToken', refreshToken, {
-        sameSite: 'none',
-        secure: true, 
-        httpOnly: true
+        sameSite: 'None',
+        httpOnly: true,
+        secure: true
       });
 
       if(favorite.length === 0) {
-        return res.send({
-          userKey: _id, 
-          userId,
-          favorite,
-          profileImg,
-          status,
-          accessToken,
-          keyword: '',
-          message: '로그인 되었습니다.'
-        })
+          return res.send({
+              keyword: '',
+              message: '좋아요 게시물 없음'
+          })
       }
 
       let countArr = []

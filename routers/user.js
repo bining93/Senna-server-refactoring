@@ -1,21 +1,21 @@
 import userController from '../controller/user/index.js';
 import { upload } from '../utils/multer.js'
 import { Router } from 'express';
-
+import { checkAccessToken, checkRefreshToken } from '../utils/tokenFunc.js';
 const router = Router();
 
 // post /user/login 
 router.post('/login', userController.login);
 
-router.get('/logout', userController.logout);
+router.get('/logout', checkAccessToken, userController.logout);
 
 router.post('/checkid', userController.checkId);
 
 router.post('/signup', upload.single('avatar'), userController.signup);
 
-router.get('/info', userController.info);
+router.get('/info', checkAccessToken, userController.info);
 
-router.get('/request_token', userController.refreshtoken)
+router.get('/request-token', checkRefreshToken, userController.refreshtoken)
 
 //patch /d/:id -> delete /:id 수정 
 router.delete('/:id', userController.withdrawal);

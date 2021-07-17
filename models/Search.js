@@ -24,7 +24,7 @@ const searchSchema = mongoose.Schema({
       type: Boolean,
       default: false
     },
-    
+
 });
 
 // 모델의 이름과 스키마를 이용해 모델의 정의함.

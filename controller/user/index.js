@@ -4,14 +4,11 @@ import signup from './signup.js';
 import checkId from './checkId.js';
 import favorite from './favorite.js';
 import deleteFavorite from './deleteFavorite.js';
-import upload from './upload.js';
 import info from './info.js';
 import updateProfile from './updateProfile.js';
 import withdrawal from './withdrawal.js'
 import refreshtoken from './refreshtoken.js';
 
-
-//엔드포인트별로 js 파일만든걸 export한다.
 export default {
     login,
     logout,
@@ -19,7 +16,6 @@ export default {
     checkId,
     favorite,
     deleteFavorite,
-    upload,
     info,
     updateProfile,
     withdrawal,

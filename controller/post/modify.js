@@ -18,9 +18,8 @@ const modify = async (req, res) => {
     }
 
     try {
-        //이전에 image를 불러온다.
+        // * 현재 저장된 image 경로 찾기 * 
         const beforeInfo = await Posting.findOne({_id: postingId}).select('image userId status')
-        console.log('beforeInfo', beforeInfo)
         const beforeImg = beforeInfo.image
     
         if(!beforeInfo.status) {
@@ -31,6 +30,7 @@ const modify = async (req, res) => {
             return res.status(401).send('게시물에 수정 권한이 없는 유저입니다.')
         } 
 
+        // * 수정사항 DB에 업데이트 *
         const updateFunc = async (tags, str, plc, imgs) => {
             let result = {}
             if(tags) {
@@ -54,11 +54,9 @@ const modify = async (req, res) => {
         }
 
         const newPosting = await updateFunc(hashtag, content, place, path)
-        console.log('newPost', newPosting)
 
-        //이전 이미지 지우기
+        // * S3 버킷에 저장된 이전 image 삭제 *
         let deleteImg = beforeImg.filter(img => !newPosting.image.includes(img))
-        console.log('deleteImg',deleteImg)
         deleteMany(deleteImg)
 
         return res.send({

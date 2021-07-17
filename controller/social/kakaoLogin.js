@@ -7,12 +7,12 @@ dotenv.config();
 
 const kakaoLogin = async (req, res) => {
     const { authorization } = req.headers;
-    console.log('authorization', authorization)
+
     if(!authorization) {
         return res.status(400).send('잘못된 접근 방식입니다.')
     }
     try {
-        //토큰으로 유저 정보 카카오한테 요청하기
+        // * kakao api로 유저 정보 요청 * 
         const getUserinfo = await axios.get(`https://kapi.kakao.com/v2/user/me`, 
             { headers: {
                 Authorization: authorization,
@@ -23,23 +23,21 @@ const kakaoLogin = async (req, res) => {
         const email = getUserinfo.data.kakao_account.email;
         const id = getUserinfo.data.id;
 
-        //유저 찾기 or DB 저장 
+        // * DB에서 유저 찾기 or 생성 *
         const userInfo = await User.findOrCreate({userId: email}, {profileImg: profileImage, socialId: id, provider:'kakao'})
-        console.log('userInfo', userInfo)
-
         if(!userInfo) {
             return res.status(401).send('인식에 실패하였습니다.')
         }
+        
         const { _id, userId, favorite, profileImg, status} = userInfo.doc
-        //토큰 발급 받기
+        
+        // * 토큰 발급 *
         const accessToken = getAccessToken({ _id, userId })   
         const refreshToken = getRefreshToken({ _id, userId })
         
-        //Post에서 내가 쓴 글을 찾아온다.
+        // * 유저가 작성한 게시글 찾기 *
         const uploadList = await Posting.find().where('userId').equals(userId).sort('-created_at');
-        console.log('find', uploadList)
 
-        // 생성된 refresh token을 쿠키에 담아줍니다
         res.cookie('refreshToken', refreshToken, {
           sameSite: 'none',
           secure: true, 

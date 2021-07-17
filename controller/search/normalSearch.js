@@ -3,7 +3,7 @@ import Search from "../../models/Search.js";
 
 const normalSearch = async (req, res) => {
     const hashtag = req.query.sch;
-    
+
     console.log('req.query',req.query.sch) //--> { sch: 'value' }
 
     if(!req.query.sch) {
@@ -13,7 +13,6 @@ const normalSearch = async (req, res) => {
             {content: new RegExp(req.query.sch, 'i')},
             {hashtag: new RegExp(req.query.sch, 'i')}
         ]
-     
         //정규표현식 객체 이용 
         //두번째 인자 -> i는 대소문자 구분 false
         await Posting.find({ $or : searchFd})
@@ -43,7 +42,7 @@ const normalSearch = async (req, res) => {
                     }
                 })
             }
-            
+
         })
         if(isExist === false){
             const checkPost = await Posting.find({ $or : searchFd})
@@ -51,9 +50,8 @@ const normalSearch = async (req, res) => {
             if(checkPost.length !== 0){
                 Search.create({hashtag:hashtag})
             }
-            
         }
-        
+
     }
 }
 //
@@ -61,5 +59,4 @@ export default normalSearch;
 
 
 //유저가 검색한 검색어를 query로 받는다.
-//게시물 해시태그나 게시글에 검색어가 포함되어 있는 게시글들만 조회한다. 
-
+//게시물 해시태그나 게시글에 검색어가 포함되어 있는 게시글들만 조회한다.

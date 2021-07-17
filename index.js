@@ -11,7 +11,7 @@ import authRouter from './routers/auth.js';
 
 const app = express();
 const port = 80;
-
+ 
 //mongoDB 연결 시키기 
 DBconnect();
 

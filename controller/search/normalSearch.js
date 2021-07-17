@@ -13,10 +13,10 @@ const normalSearch = async (req, res) => {
             {content: new RegExp(req.query.sch, 'i')},
             {hashtag: new RegExp(req.query.sch, 'i')}
         ]
-    
+     
         //정규표현식 객체 이용 
         //두번째 인자 -> i는 대소문자 구분 false
-        await Posting.find({ $or : searchFd}).where('status').equals('true').sort('-created_at')
+        await Posting.find({ $or : searchFd})
         .then(result => {
             console.log('result', result)
             res.send({
@@ -28,9 +28,8 @@ const normalSearch = async (req, res) => {
         .catch(err => {
             throw err;
         })
-        
         const tags = await Search.find()
-        .where('searchcount').gte(1);
+        .where('searchcount').gte(0);
         let isExist = false;
         tags.map(el => {
             if(el.hashtag === hashtag) {
@@ -52,11 +51,12 @@ const normalSearch = async (req, res) => {
             if(checkPost.length !== 0){
                 Search.create({hashtag:hashtag})
             }
+            
         }
         
     }
 }
-
+//
 export default normalSearch;
 
 

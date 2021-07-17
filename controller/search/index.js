@@ -5,4 +5,4 @@ import hotKeyword from "./hotKeyword.js";
 export default {
     normalSearch,
     hotKeyword,
-}
+} 

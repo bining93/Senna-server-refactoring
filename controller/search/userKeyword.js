@@ -23,7 +23,7 @@ const userKeyword = async (req, res) => {
                 keyword: '',
                 message: '좋아요 게시물 없음'
             })
-        }
+        } 
 
         let countArr = []
         let obj = {}

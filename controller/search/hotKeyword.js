@@ -12,7 +12,7 @@ const hotKeyword = async (req, res) => {
                 message: '인기 검색어'
             })  
         }
-    )
+    ) 
     
 }
 

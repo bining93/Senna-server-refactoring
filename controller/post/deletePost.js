@@ -1,14 +1,16 @@
 import Posting from '../../models/Posting.js';
-//게시물 삭제시 s3에 저장된 사진도 삭제하기
+import { deleteMany } from '../../utils/multer.js';
+
 const deletePost = async (req, res) => {
     if(!req.params) {
-        res.status(400).send('잘못된 요청입니다.')
+        return res.status(400).send('잘못된 요청입니다.')
     }
     try {
         const postingId = req.params.id;
         console.log('postingId')
         const update = await Posting.findByIdAndUpdate(postingId, {status: false}, {new:true}).exec()
-        res.send({
+        //deleteMany(update.image)
+        return res.send({
             data: { 
                 postingId: update._id,
                 status: update.status

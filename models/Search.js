@@ -9,21 +9,17 @@ const searchSchema = mongoose.Schema({
     },
     searchcount: {
       type: Number,
-      default: 1
+      default: 0
     },
-
-    likecount: {
-      type: Number,
-      default: 1
-    },
-
     synonym: {
       type: Array
     },
-    forbidden: {
-      type: Boolean,
-      default: false
+    city: {
+        type: Array
     },
+    continent: {
+        type: String
+    }
     
 });
 

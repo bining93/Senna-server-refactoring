@@ -40,10 +40,16 @@ const login = async (req, res) => {
       });
 
       if(favorite.length === 0) {
-          return res.send({
-              keyword: '',
-              message: '좋아요 게시물 없음'
-          })
+        return res.send({
+          userKey: _id, 
+          userId,
+          favorite,
+          profileImg,
+          status,
+          accessToken, 
+          keyword: '',
+          message: '좋아요 게시물 없음'
+        })
       }
 
       let countArr = []

@@ -10,18 +10,19 @@ const favorite = async (req, res) => {
     } 
     
     try {
+        
         let userInfo = await User.findById(id).exec()
 
         if(!userInfo || !userInfo.status) {
             return res.status(401).send('존재하지 않는 유저입니다.')
         }
- 
+        
         let curFavorite = userInfo.favorite || {}
 
         const postingInfo = await Posting.findById(postingId)
         console.log('postingInfo', postingInfo)
         if(!postingInfo.likeUser.includes(userInfo.userId)) {
-            const addFavorite = await User.findOneAndUpdate({_id:id}, {favorite: [...curFavorite, postingInfo]}, {upsert:true}).select('userId')
+            const addFavorite = await User.findOneAndUpdate({_id:id}, {favorite: [postingInfo, ...curFavorite]}, {upsert:true}).select('userId')
             console.log('addFavorite', addFavorite);
 
             if(addFavorite) { 
@@ -31,8 +32,6 @@ const favorite = async (req, res) => {
         }
         return res.status(401).send('이미 추가된 게시물입니다.')
         //유저가 좋아요한 postingId로 게시물 정보를 찾아온다. 
-        
-
 
     } catch(err) {
         res.status(err.status || 500).send(err.message || 'error')

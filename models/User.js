@@ -10,7 +10,7 @@ import findOrCreate from 'mongoose-findorcreate';
     },
     password: {
         type: String,
-        minlength: 5,
+        minlength: 5
     },
     profileImg: {
         type: String

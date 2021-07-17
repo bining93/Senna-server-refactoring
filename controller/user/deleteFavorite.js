@@ -15,14 +15,13 @@ const deleteFavorite = async (req, res) => {
         if(!nowFavorite) {
             return res.status(404).send('추가된 게시물이 아닙니다.')
         }
-        //삭제할 postingId 뺀 favorite 배열 
+
+        // * 삭제할 게시물 제외 *
         const newFavorite  = nowFavorite.favorite.filter((post) => post._id.toString() !== postingId)
-        console.log('newFavorite', newFavorite)
-        
         const update = await User.findByIdAndUpdate(userId, {favorite: newFavorite}, {new:true}).exec()      
-        console.log('update', update)
+
         if(update) {
-            //like -1
+            // * 게시물 좋아요 누른 유저 배열에서 해당 유저 제외 *
             const nowlike = await Posting.findById(postingId).select('likeUser') 
             let updateLike = nowlike.likeUser.filter(el => el !== update.userId)
             await Posting.findByIdAndUpdate(postingId, {$inc:{likes:-1}, likeUser: updateLike}, {new:true})

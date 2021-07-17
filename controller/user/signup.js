@@ -4,9 +4,6 @@ import { encryption } from '../../utils/setPwd.js';
 
 const signup = async (req,res) => {
     const { userId, password } = req.body
-    //console.log('req', req.file)
-    //s3 버킷에 multer를 연동하면 location안에 경로가 들어가있다. 
-    //선택사항이라 초기값을 빈문자열로
     let profileImg, type = ''  
 
     if(!userId || !password || userId === 'undefined' || password === 'undefined') {
@@ -24,6 +21,7 @@ const signup = async (req,res) => {
     }
 
     try {
+        // * 패스워드 암호화 *
         const pwd = encryption(password)
         const joinUser = await User.create({
             userId,
@@ -47,15 +45,3 @@ const signup = async (req,res) => {
 }
 
 export default signup;
-//유저가 이미 있는 경우
-
-
-//회원 가입 할 때 img를 multer가 uploads 파일에 올리고
-//그 경로를 서버에 넣고
-//응답을 보낸다. 
-
-
-//crypto.scryptSync() 함수는 password-based(암호-기반) key-derivation function(키-값 유도함수)다.
-//필수인자 값으로 password, salt, keylen
-//암호(password)에 소금 간(salt)좀 쳐 주고 키 길이 제한 넣어주면 
-//키를 반환해주는 자판기 같은 놈이다. 

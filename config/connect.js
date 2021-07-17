@@ -6,7 +6,7 @@ dotenv.config();
 export default () => {
 
 const uri = process.env.MONGODB_URI
-// db connect
+// * mongoDB connect *
     mongoose
   .connect(uri, {
     useNewUrlParser: true,

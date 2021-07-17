@@ -5,7 +5,6 @@ const kakaoWithdrawal = async (req, res) => {
 
     try {
         const setStatus = await User.findByIdAndUpdate(id, { status: false })
-        console.log('setStatus', setStatus)
         if(!setStatus) {
             return res.status(404).send('회원탈퇴에 실패했습니다.')
         }

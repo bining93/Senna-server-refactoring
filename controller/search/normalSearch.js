@@ -4,7 +4,7 @@ import Search from "../../models/Search.js";
 const normalSearch = async (req, res) => {
     const hashtag = req.query.sch;
 
-    console.log('req.query',req.query.sch) //--> { sch: 'value' }
+    console.log('req.query',req.query.sch)
 
     if(!req.query.sch) {
         res.status(400).send('query가 들어오지 않았습니다.')
@@ -13,7 +13,6 @@ const normalSearch = async (req, res) => {
             {content: new RegExp(req.query.sch, 'i')},
             {hashtag: new RegExp(req.query.sch, 'i')}
         ]
-
         //정규표현식 객체 이용 
         //두번째 인자 -> i는 대소문자 구분 false
         await Posting.find({ $or : searchFd})
@@ -51,12 +50,11 @@ const normalSearch = async (req, res) => {
             if(checkPost.length !== 0){
                 Search.create({hashtag:hashtag})
             }
-
         }
 
     }
 }
-//
+
 export default normalSearch;
 
 

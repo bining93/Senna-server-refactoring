@@ -4,7 +4,7 @@ import Search from "../../models/Search.js";
 const normalSearch = async (req, res) => {
     const hashtag = req.query.sch;
 
-    console.log('req.query',req.query.sch) //--> { sch: 'value' }
+    console.log('req.query',req.query.sch)
 
     if(!req.query.sch) {
         res.status(400).send('query가 들어오지 않았습니다.')
@@ -54,7 +54,7 @@ const normalSearch = async (req, res) => {
 
     }
 }
-//
+
 export default normalSearch;
 
 

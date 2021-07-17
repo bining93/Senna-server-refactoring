@@ -8,20 +8,20 @@ import postRouter from'./routers/post.js';
 import searchRouter from './routers/search.js';
 import authRouter from './routers/auth.js';
 
-
 const app = express();
 const port = 80;
 
 DBconnect();
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
 app.use(cors({
   origin: true,
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+  methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
 }));
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+
 app.use(cookieParser());
 
 

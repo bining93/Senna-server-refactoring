@@ -15,15 +15,15 @@ const port = 80;
 //mongoDB 연결 시키기 
 DBconnect();
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
 app.use(cors({
   //origin: ['http://localhost:3000/', 'https://www.senna.world/', 'https://senna.world/'],
   origin: true,
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+  methods: 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
 }));
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
 

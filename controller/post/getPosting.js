@@ -9,7 +9,7 @@ const getPosting = async (req, res) => {
 
     try{
         const postingInfo = await Posting.findById(postingId)
-        console.log('postingInfo', postingInfo)
+        
         return res.send({
             data: postingInfo
         })

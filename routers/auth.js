@@ -5,10 +5,8 @@ import social from '../controller/social/index.js';
 const router = Router();
 dotenv.config();
 
-
 router.get('/callback/kakao', social.kakaoLogin);
 
-// d/:id -> /:id
 router.delete('/:id', social.kakaoWithdrawal);
 
 

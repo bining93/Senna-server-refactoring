@@ -6,7 +6,7 @@ let algorithm = 'aes-192-cbc';  //사용할 알고리즘
 const key = crypto.scryptSync(process.env.PWD_MAKE_KEY, process.env.PWD_SALT, 24);  //암호화, 복호화를 위한 키 생성
 const iv = Buffer.alloc(16, 0);
 
-//비밀번호 암호화  
+// * 패스워드 암호화 *  
 const encryption = (data) => {
     if(!data) {
         return ''
@@ -16,11 +16,10 @@ const encryption = (data) => {
     let encrypted = cipher.update(data, 'utf8', 'base64'); 
     //base64 형식으로 암호화 
     encrypted += cipher.final('base64')
-    console.log('encrypted---', encrypted)
     return encrypted
 }
 
-//비밀번호 복호화
+// * 패스워드 복호화 *
 const decryption = (data) => {
     if(!data) {
         return ''
@@ -31,7 +30,6 @@ const decryption = (data) => {
     let decrypted = decipher.update(data, 'base64', 'utf8');
     //암호화 했던 것을 utf8형식으로 인코딩해줌
     decrypted += decipher.final('utf8')
-    console.log('decry', decrypted)
     return decrypted
 }
  

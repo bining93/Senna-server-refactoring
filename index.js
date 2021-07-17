@@ -12,7 +12,6 @@ import authRouter from './routers/auth.js';
 const app = express();
 const port = 80;
 
-//mongoDB 연결 시키기 
 DBconnect();
 
 app.use(logger('dev'));
@@ -26,13 +25,7 @@ app.use(cors({
 app.use(cookieParser());
 
 
-//테스트용
-app.get('/', (req,res) => {
-    console.log('연결 성공')
-    res.send('Hello SENNA!!!')
-})
-
-//라우터 연결
+//* 라우터 연결 *
 app.use('/user', userRouter)
 app.use('/post', postRouter)
 app.use('/search', searchRouter)

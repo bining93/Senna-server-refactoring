@@ -6,14 +6,13 @@ const updateProfile = async (req, res) => {
    
     const { password } = req.body;
     const encryptedPwd = encryption(password);
-    //console.log('enenenen', encryptedPwd)
     let profileImg, type = ''   
 
     if(req.file !== undefined) {
         profileImg = req.file.location;
         type = req.file.mimetype.split('/')[1]
-        //console.log('type', type)
 
+        // * 파일 형식 검사 *
         if(!checkType(type)) {
             deleteOne(profileImg)
             return res.status(400).send('잘못된 파일 형식입니다.')
@@ -27,9 +26,8 @@ const updateProfile = async (req, res) => {
             return res.status(404).send('유저를 찾을 수 없습니다.')
         }
 
+        // * 수정사항 DB 업데이트 *
         const updateFunc = async (pwd, img) => {
-            console.log('img', img)
-            console.log('pwd', pwd)
             let update = ''
             if(pwd) {           
                 await User.updateOne({userId: userInfo.userId}, { password: pwd })
@@ -43,7 +41,6 @@ const updateProfile = async (req, res) => {
 
         if(userInfo.provider === 'kakao' || !userInfo.profileImg) {
             const newProfile = await updateFunc(encryptedPwd, profileImg)
-            console.log('info', newProfile)
             return res.status(200).send("회원정보가 수정되었습니다");
         }
 
@@ -51,7 +48,6 @@ const updateProfile = async (req, res) => {
         if(normalNewProfile === 'img') {
             deleteOne(userInfo.profileImg)
         }
-        console.log('normal', normalNewProfile)
         return res.status(200).send("회원정보가 수정되었습니다");
         
     } catch(err) {

@@ -18,8 +18,8 @@ const withdrawal = async (req,res) => {
             return res.status(401).send('비밀번호를 확인해주세요.')
         }
         
-        const setStatus = await User.findByIdAndUpdate(userInfo._id, { status: false })
-        if(!setStatus) {
+        const dropUser = await User.findByIdAndUpdate(userInfo._id, { status: false })
+        if(!dropUser) {
             return res.status(404).send('회원탈퇴에 실패했습니다.')
         }
 

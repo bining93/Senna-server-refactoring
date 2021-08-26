@@ -22,10 +22,10 @@ const signup = async (req,res) => {
 
     try {
         // * 패스워드 암호화 *
-        const pwd = encryption(password)
+        const encryptionPwd = encryption(password)
         const joinUser = await User.create({
             userId,
-            password: pwd,
+            password: encryptionPwd,
             profileImg
         })
 

@@ -40,7 +40,4 @@ const deleteFavorite = async (req, res) => {
 
 export default deleteFavorite;
 
-//유저가 관심 게시물 삭제하면 유저 favorite에서 게시물 id 삭제 
-//유저 id로 User collection에서 맞는 doc를 찾아 favorite 키만 가져온다. 
-//게시물 like -1 하기 
 

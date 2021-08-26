@@ -27,7 +27,7 @@ const updateProfile = async (req, res) => {
         }
 
         // * 수정사항 DB 업데이트 *
-        const updateFunc = async (pwd, img) => {
+        const updateInfo = async (pwd, img) => {
             let update = ''
             if(pwd) {           
                 await User.updateOne({userId: userInfo.userId}, { password: pwd })
@@ -40,12 +40,12 @@ const updateProfile = async (req, res) => {
         }
 
         if(userInfo.provider === 'kakao' || !userInfo.profileImg) {
-            const newProfile = await updateFunc(encryptedPwd, profileImg)
+            await updateInfo(encryptedPwd, profileImg)
             return res.status(200).send("회원정보가 수정되었습니다");
         }
 
-        const normalNewProfile = await updateFunc(encryptedPwd, profileImg)
-        if(normalNewProfile === 'img') {
+        const changeProfile = await updateInfo(encryptedPwd, profileImg)
+        if(changeProfile === 'img') {
             deleteOne(userInfo.profileImg)
         }
         return res.status(200).send("회원정보가 수정되었습니다");

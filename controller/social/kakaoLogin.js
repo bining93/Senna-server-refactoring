@@ -21,10 +21,10 @@ const kakaoLogin = async (req, res) => {
         })
         const profileImage = getUserinfo.data.properties.profile_image;
         const email = getUserinfo.data.kakao_account.email;
-        const id = getUserinfo.data.id;
+        const kakaoId = getUserinfo.data.id;
 
         // * DB에서 유저 찾기 or 생성 *
-        const userInfo = await User.findOrCreate({userId: email}, {profileImg: profileImage, socialId: id, provider:'kakao'})
+        const userInfo = await User.findOrCreate({userId: email}, {profileImg: profileImage, socialId: kakaoId, provider:'kakao'})
         if(!userInfo) {
             return res.status(401).send('인식에 실패하였습니다.')
         }
